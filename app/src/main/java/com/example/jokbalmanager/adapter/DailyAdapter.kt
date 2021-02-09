@@ -20,6 +20,11 @@ class DailyAdapter(private var dates: List<String>) :
 
     override fun getItemCount(): Int = dates.size
 
+    fun setDates(dates: List<String>) {
+        this.dates = dates
+        notifyDataSetChanged()
+    }
+
     class DailyViewHolder(private val binding: DailyItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

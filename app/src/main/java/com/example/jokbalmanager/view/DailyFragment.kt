@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.jokbalmanager.adapter.DailyAdapter
 import com.example.jokbalmanager.databinding.FragmentDailyBinding
 import com.example.jokbalmanager.util.getDaysOfPreviousMonth
@@ -14,6 +15,9 @@ import com.example.jokbalmanager.util.getTodayMonth
 class DailyFragment : Fragment() {
     private var _binding: FragmentDailyBinding? = null
     private val binding get() = _binding!!
+    private val adapter by lazy {
+        DailyAdapter(getDaysOfPreviousMonth(0))
+    }
     private var count = 0
 
     override fun onCreateView(
@@ -29,12 +33,19 @@ class DailyFragment : Fragment() {
         binding.apply {
             currentMonthText.text = getTodayMonth()
             prevMonthButton.setOnClickListener {
-                currentMonthText.text = getPreviousMonth(--count)
+                count--
+                adapter.setDates(getDaysOfPreviousMonth(count))
+                currentMonthText.text = getPreviousMonth(count)
             }
             nextMonthButton.setOnClickListener {
-                currentMonthText.text = getPreviousMonth(++count)
+                count++
+                adapter.setDates(getDaysOfPreviousMonth(count))
+                currentMonthText.text = getPreviousMonth(count)
             }
-            dailyRv.adapter = DailyAdapter(getDaysOfPreviousMonth(0))
+            dailyRv.adapter = adapter
+            dailyRv.addItemDecoration(
+                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            )
         }
     }
 
