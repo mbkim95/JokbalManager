@@ -9,17 +9,17 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.jokbalmanager.adapter.DailyAdapter
 import com.example.jokbalmanager.databinding.FragmentDailyBinding
-import com.example.jokbalmanager.model.dummyData
+import com.example.jokbalmanager.util.generateDummyData
 import com.example.jokbalmanager.util.getTodayMonth
 import com.example.jokbalmanager.viewmodel.DailyViewModel
 
 class DailyFragment : Fragment() {
     private var _binding: FragmentDailyBinding? = null
     private val binding get() = _binding!!
-    private val dailyAdapter by lazy {
-        DailyAdapter(dummyData)
-    }
     private val viewModel: DailyViewModel by viewModels()
+    private val dailyAdapter by lazy {
+        DailyAdapter(generateDummyData())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +31,7 @@ class DailyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getMonthOrderData()
         initializeView()
         observeData()
     }
@@ -40,6 +41,9 @@ class DailyFragment : Fragment() {
 //            dailyAdapter.setDates(getDaysOfPreviousMonth(it))
 //            binding.currentMonthText.text = getPreviousMonth(it)
 //        }
+        viewModel.monthOrders.observe(viewLifecycleOwner) {
+            dailyAdapter.setDates(it)
+        }
     }
 
     private fun initializeView() {
