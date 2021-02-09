@@ -32,6 +32,18 @@ class DailyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeView()
+        observeData()
+    }
+
+    private fun observeData() {
+        viewModel.count.observe(viewLifecycleOwner) {
+            adapter.setDates(getDaysOfPreviousMonth(it))
+            binding.currentMonthText.text = getPreviousMonth(it)
+        }
+    }
+
+    private fun initializeView() {
         binding.apply {
             currentMonthText.text = getTodayMonth()
             prevMonthButton.setOnClickListener {
@@ -40,14 +52,10 @@ class DailyFragment : Fragment() {
             nextMonthButton.setOnClickListener {
                 viewModel.moveNextMonth()
             }
-            dailyRv.adapter = adapter
-            dailyRv.addItemDecoration(
-                DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-            )
-        }
-        viewModel.count.observe(viewLifecycleOwner) {
-            adapter.setDates(getDaysOfPreviousMonth(it))
-            binding.currentMonthText.text = getPreviousMonth(it)
+            dailyRv.apply {
+                this.adapter = adapter
+                addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            }
         }
     }
 
