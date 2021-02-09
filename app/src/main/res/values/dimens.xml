@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="date_button_text_size">16dp</dimen>
+    <dimen name="item_text_size">16dp</dimen>
+    <dimen name="item_detail_text_size">14dp</dimen>
+</resources>
