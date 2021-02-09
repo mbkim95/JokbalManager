@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.jokbalmanager.adapter.DailyAdapter
 import com.example.jokbalmanager.databinding.FragmentDailyBinding
 import com.example.jokbalmanager.util.getDaysOfPreviousMonth
 import com.example.jokbalmanager.util.getPreviousMonth
 import com.example.jokbalmanager.util.getTodayMonth
+import com.example.jokbalmanager.viewmodel.DailyViewModel
 
 class DailyFragment : Fragment() {
     private var _binding: FragmentDailyBinding? = null
@@ -18,7 +20,7 @@ class DailyFragment : Fragment() {
     private val adapter by lazy {
         DailyAdapter(getDaysOfPreviousMonth(0))
     }
-    private var count = 0
+    private val viewModel: DailyViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,19 +35,19 @@ class DailyFragment : Fragment() {
         binding.apply {
             currentMonthText.text = getTodayMonth()
             prevMonthButton.setOnClickListener {
-                count--
-                adapter.setDates(getDaysOfPreviousMonth(count))
-                currentMonthText.text = getPreviousMonth(count)
+                viewModel.movePrevMonth()
             }
             nextMonthButton.setOnClickListener {
-                count++
-                adapter.setDates(getDaysOfPreviousMonth(count))
-                currentMonthText.text = getPreviousMonth(count)
+                viewModel.moveNextMonth()
             }
             dailyRv.adapter = adapter
             dailyRv.addItemDecoration(
                 DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             )
+        }
+        viewModel.count.observe(viewLifecycleOwner) {
+            adapter.setDates(getDaysOfPreviousMonth(it))
+            binding.currentMonthText.text = getPreviousMonth(it)
         }
     }
 
