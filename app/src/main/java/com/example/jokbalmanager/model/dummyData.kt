@@ -2,47 +2,47 @@ package com.example.jokbalmanager.model
 
 val dummyData = listOf(
     DayOrder(
-        "2021/02/1", listOf(
+        "2021/02/01", listOf(
             Order(Jok.FRONT, 10000, 1.8, 20000),
             Order(Jok.MIX, 10000, 2.2, 20000),
             Order(Jok.BACK, 10000, 1.4, 15000),
         )
     ),
     DayOrder(
-        "2021/02/2", listOf(Order(Jok.FRONT, 10000, 1.8, 20000))
+        "2021/02/02", listOf(Order(Jok.FRONT, 10000, 1.8, 20000))
     ),
     DayOrder(
-        "2021/02/3", listOf(
+        "2021/02/03", listOf(
             Order(Jok.BACK, 7800, 2.0, 18000),
             Order(Jok.FRONT, 10000, 1.8, 20000),
         )
     ),
     DayOrder(
-        "2021/02/4",
+        "2021/02/04",
         listOf(
             Order(Jok.FRONT, 10000, 1.8, 20000),
             Order(Jok.MIX, 10000, 1.8, 20000),
         )
     ),
     DayOrder(
-        "2021/02/5",
+        "2021/02/05",
         listOf()
     ),
     DayOrder(
-        "2021/02/6", listOf(
+        "2021/02/06", listOf(
             Order(Jok.FRONT, 10000, 1.8, 20000)
         )
     ),
     DayOrder(
-        "2021/02/7",
+        "2021/02/07",
         listOf()
     ),
     DayOrder(
-        "2021/02/8",
+        "2021/02/08",
         listOf()
     ),
     DayOrder(
-        "2021/02/9",
+        "2021/02/09",
         listOf()
     ),
     DayOrder(
