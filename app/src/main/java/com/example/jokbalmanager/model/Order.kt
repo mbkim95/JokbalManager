@@ -5,7 +5,6 @@ enum class Jok {
 }
 
 data class Order(
-    var date: String,
     var type: Jok,
     var price: Int,
     var weight: Double,

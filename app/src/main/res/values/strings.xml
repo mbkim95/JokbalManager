@@ -4,4 +4,9 @@
     <string name="left_arrow">←</string>
     <string name="right_arrow">→</string>
     <string name="day_format">%d월 %d일</string>
+    <string name="front_leg">앞발</string>
+    <string name="back_leg">뒷발</string>
+    <string name="mix_leg">혼합</string>
+    <string name="zero_balance">0원</string>
+    <string name="zero_weight">0kg</string>
 </resources>

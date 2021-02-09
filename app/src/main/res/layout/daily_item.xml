@@ -17,6 +17,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/total_weight_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/zero_weight"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/total_balance_text"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1.8kg" />
+
+    <TextView
+        android:id="@+id/total_balance_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/zero_balance"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="+2000" />
+
     <!--    TODO: 보여주면 좋을 정보 추려서 레이아웃 만들어야함 -->
     <LinearLayout
         android:id="@+id/order_detail_layout"
@@ -28,19 +50,25 @@
         tools:visibility="visible">
 
         <include
+            android:id="@+id/front"
             layout="@layout/daily_detail_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <include
+            android:id="@+id/back"
             layout="@layout/daily_detail_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <include
+            android:id="@+id/mix"
             layout="@layout/daily_detail_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </LinearLayout>
 
