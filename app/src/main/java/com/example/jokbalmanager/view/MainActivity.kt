@@ -1,4 +1,4 @@
-package com.example.jokbalmanager
+package com.example.jokbalmanager.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

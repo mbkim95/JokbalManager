@@ -1,10 +1,11 @@
-package com.example.jokbalmanager
+package com.example.jokbalmanager.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.jokbalmanager.adapter.TabAdapter
 import com.example.jokbalmanager.databinding.FragmentMainBinding
 import com.google.android.material.tabs.TabLayoutMediator
 

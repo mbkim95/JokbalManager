@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DailyFragment">
+    tools:context=".view.DailyFragment">
 
     <LinearLayout
         android:id="@+id/month_button_layout"
