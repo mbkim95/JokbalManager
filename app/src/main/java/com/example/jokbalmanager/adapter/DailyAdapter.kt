@@ -1,6 +1,7 @@
 package com.example.jokbalmanager.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jokbalmanager.databinding.DailyItemBinding
@@ -31,6 +32,12 @@ class DailyAdapter(private var dates: List<String>) :
         fun bind(date: String) {
             binding.apply {
                 dateText.text = date
+                root.setOnClickListener {
+                    orderDetailLayout.visibility = when (orderDetailLayout.visibility) {
+                        View.VISIBLE -> View.GONE
+                        else -> View.VISIBLE
+                    }
+                }
             }
         }
     }

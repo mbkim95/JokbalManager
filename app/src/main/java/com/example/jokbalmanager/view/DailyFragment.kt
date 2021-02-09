@@ -17,7 +17,7 @@ import com.example.jokbalmanager.viewmodel.DailyViewModel
 class DailyFragment : Fragment() {
     private var _binding: FragmentDailyBinding? = null
     private val binding get() = _binding!!
-    private val adapter by lazy {
+    private val dailyAdapter by lazy {
         DailyAdapter(getDaysOfPreviousMonth(0))
     }
     private val viewModel: DailyViewModel by viewModels()
@@ -38,7 +38,7 @@ class DailyFragment : Fragment() {
 
     private fun observeData() {
         viewModel.count.observe(viewLifecycleOwner) {
-            adapter.setDates(getDaysOfPreviousMonth(it))
+            dailyAdapter.setDates(getDaysOfPreviousMonth(it))
             binding.currentMonthText.text = getPreviousMonth(it)
         }
     }
@@ -53,7 +53,7 @@ class DailyFragment : Fragment() {
                 viewModel.moveNextMonth()
             }
             dailyRv.apply {
-                this.adapter = adapter
+                adapter = dailyAdapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
         }
