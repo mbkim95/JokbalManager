@@ -119,6 +119,10 @@ val dummyData = listOf(
     ),
     DayOrder(
         "2021/02/28",
-        listOf()
+        listOf(
+            Order(Jok.FRONT, 10000, 1.8, 20000),
+            Order(Jok.MIX, 10000, 2.2, 20000),
+            Order(Jok.BACK, 10000, 1.4, 15000),
+        )
     ),
 )

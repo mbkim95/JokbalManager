@@ -6,28 +6,41 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jokbalmanager.R
 import com.example.jokbalmanager.databinding.DailyItemBinding
+import com.example.jokbalmanager.databinding.FooterDailyItemBinding
 import com.example.jokbalmanager.model.DayOrder
 import com.example.jokbalmanager.model.Jok
 import com.example.jokbalmanager.model.Order
 
 class DailyAdapter(private var dates: List<DayOrder>) :
-    RecyclerView.Adapter<DailyAdapter.DailyViewHolder>() {
-    private lateinit var binding: DailyItemBinding
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
-        binding = DailyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return DailyViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == ORDER) {
+            val binding =
+                DailyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            DailyViewHolder(binding)
+        } else {
+            val binding =
+                FooterDailyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            FooterViewHolder(binding)
+        }
     }
 
-    override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
-        holder.bind(dates[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is DailyViewHolder) {
+            holder.bind(dates[position])
+        }
     }
-
-    override fun getItemCount(): Int = dates.size
 
     fun setDates(dates: List<DayOrder>) {
         this.dates = dates
         notifyDataSetChanged()
+    }
+
+    override fun getItemCount(): Int = dates.size + FOOTER_COUNT
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position in dates.indices) ORDER else FOOTER
     }
 
     class DailyViewHolder(private val binding: DailyItemBinding) :
@@ -99,6 +112,14 @@ class DailyAdapter(private var dates: List<DayOrder>) :
                 totalBalanceText.text = "${totalBalance}원"
             }
         }
+    }
+
+    class FooterViewHolder(binding: FooterDailyItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+    companion object {
+        const val ORDER = 0
+        const val FOOTER = 1
+        const val FOOTER_COUNT = 1
     }
 }
 
