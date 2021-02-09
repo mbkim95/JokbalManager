@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.jokbalmanager.adapter.DailyAdapter
 import com.example.jokbalmanager.databinding.FragmentDailyBinding
+import com.example.jokbalmanager.util.getDaysOfPreviousMonth
 import com.example.jokbalmanager.util.getPreviousMonth
 import com.example.jokbalmanager.util.getTodayMonth
 
@@ -32,6 +34,7 @@ class DailyFragment : Fragment() {
             nextMonthButton.setOnClickListener {
                 currentMonthText.text = getPreviousMonth(++count)
             }
+            dailyRv.adapter = DailyAdapter(getDaysOfPreviousMonth(0))
         }
     }
 
