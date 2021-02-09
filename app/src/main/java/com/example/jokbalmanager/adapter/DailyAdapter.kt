@@ -68,6 +68,7 @@ class DailyAdapter(private var dates: List<DayOrder>) :
                 binding.apply {
                     totalWeightText.text = root.context.getText(R.string.zero_weight)
                     totalBalanceText.text = root.context.getText(R.string.zero_balance)
+                    totalPriceText.text = root.context.getText(R.string.zero_balance)
                     front.root.visibility = View.GONE
                     back.root.visibility = View.GONE
                     mix.root.visibility = View.GONE
@@ -77,15 +78,18 @@ class DailyAdapter(private var dates: List<DayOrder>) :
 
             var totalWeight = 0.0
             var totalBalance = 0
+            var totalPrice = 0
             orders.forEach {
                 totalWeight += it.weight
                 totalBalance += calculateBalance(it)
+                totalPrice += (it.price * it.weight).toInt()
                 when (it.type) {
                     Jok.FRONT -> {
                         binding.front.apply {
                             root.visibility = View.VISIBLE
                             orderTypeText.text = root.context.getString(R.string.front_leg)
                             weightText.text = "${it.weight}kg"
+                            totalPriceText.text = "${(it.price * it.weight).toInt()}원"
                             balanceText.text = "${calculateBalance(it)}원"
                         }
                     }
@@ -94,6 +98,7 @@ class DailyAdapter(private var dates: List<DayOrder>) :
                             root.visibility = View.VISIBLE
                             orderTypeText.text = root.context.getString(R.string.back_leg)
                             weightText.text = "${it.weight}kg"
+                            totalPriceText.text = "${(it.price * it.weight).toInt()}원"
                             balanceText.text = "${calculateBalance(it)}원"
                         }
                     }
@@ -102,6 +107,7 @@ class DailyAdapter(private var dates: List<DayOrder>) :
                             root.visibility = View.VISIBLE
                             orderTypeText.text = root.context.getString(R.string.mix_leg)
                             weightText.text = "${it.weight}kg"
+                            totalPriceText.text = "${(it.price * it.weight).toInt()}원"
                             balanceText.text = "${calculateBalance(it)}원"
                         }
                     }
@@ -109,6 +115,7 @@ class DailyAdapter(private var dates: List<DayOrder>) :
             }
             binding.apply {
                 totalWeightText.text = "${totalWeight}kg"
+                totalPriceText.text = "${totalPrice}원"
                 totalBalanceText.text = "${totalBalance}원"
             }
         }

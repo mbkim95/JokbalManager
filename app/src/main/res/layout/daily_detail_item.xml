@@ -21,9 +21,19 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/balance_text"
+        app:layout_constraintEnd_toStartOf="@id/total_price_text"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1.8kg" />
+
+    <TextView
+        android:id="@+id/total_price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/balance_text"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="18000원" />
 
     <TextView
         android:id="@+id/balance_text"
