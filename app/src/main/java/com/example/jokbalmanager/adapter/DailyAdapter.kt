@@ -63,22 +63,13 @@ class DailyAdapter(
                     }
                 }
                 front.root.setOnClickListener {
-                    itemClickListener(
-                        day.date,
-                        day.orders.filter { it.type == Jok.FRONT }[0]
-                    )
+                    itemClickListener(day.date, day.orders.filter { it.type == Jok.FRONT }[0])
                 }
                 back.root.setOnClickListener {
-                    itemClickListener(
-                        day.date,
-                        day.orders.filter { it.type == Jok.BACK }[0]
-                    )
+                    itemClickListener(day.date, day.orders.filter { it.type == Jok.BACK }[0])
                 }
                 mix.root.setOnClickListener {
-                    itemClickListener(
-                        day.date,
-                        day.orders.filter { it.type == Jok.MIX }[0]
-                    )
+                    itemClickListener(day.date, day.orders.filter { it.type == Jok.MIX }[0])
                 }
             }
         }

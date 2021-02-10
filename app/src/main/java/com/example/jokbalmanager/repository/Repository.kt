@@ -37,6 +37,10 @@ class OrderRepository(context: Context) {
         return convertEntityToOrder(orders, year, month)
     }
 
+    fun deleteOrder(order: OrderEntity) {
+        db.orderDao().deleteOrder(order)
+    }
+
     private fun convertEntityToOrder(
         entity: List<OrderEntity>,
         year: Int,

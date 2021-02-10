@@ -23,7 +23,7 @@ class DailyFragment : Fragment() {
             DetailOrderDialogFragment(date, order, fixButtonClickListener = {
 
             }, deleteButtonClickListener = {
-
+                viewModel.deleteOrder(it)
             }).show(
                 childFragmentManager,
                 DetailOrderDialogFragment::class.java.simpleName

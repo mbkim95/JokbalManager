@@ -60,4 +60,12 @@ class OrderRepositoryTest {
             assertEquals(30000, it.deposit)
         }
     }
+
+    @Test
+    fun deleteTest() {
+        orderDao.insertOrder(OrderEntity("2021-02-14", 0, 10000, 1.8, 23000))
+        orderDao.deleteOrder(OrderEntity("2021-02-14", 0, 10000, 1.8, 23000))
+        val order = orderDao.findOrderByType("2021-02-14", 0)
+        assertNull(order)
+    }
 }
