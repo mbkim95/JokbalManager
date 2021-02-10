@@ -60,7 +60,9 @@ class DailyFragment : Fragment() {
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
             addButton.setOnClickListener {
-                AddOrderDialogFragment().show(
+                AddOrderDialogFragment { order ->
+
+                }.show(
                     childFragmentManager,
                     AddOrderDialogFragment::class.java.simpleName
                 )

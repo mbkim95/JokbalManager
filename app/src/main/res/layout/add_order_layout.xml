@@ -216,12 +216,22 @@
         android:id="@+id/total_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/zero"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/price_ttitle_tv"
+        app:layout_constraintEnd_toStartOf="@id/won_tv2"
+        app:layout_constraintTop_toTopOf="@id/price_ttitle_tv" />
+
+    <TextView
+        android:id="@+id/won_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:text="@string/won"
         android:textSize="@dimen/add_order_text_size"
         app:layout_constraintBottom_toBottomOf="@id/price_ttitle_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/price_ttitle_tv"
-        tools:text="10000원" />
+        app:layout_constraintTop_toTopOf="@id/price_ttitle_tv" />
 
     <TextView
         android:id="@+id/deposit_tv"
@@ -267,17 +277,29 @@
         app:layout_constraintTop_toBottomOf="@id/deposit_tv" />
 
     <TextView
+        android:id="@+id/total_balance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/balance_tv"
+        app:layout_constraintEnd_toStartOf="@id/won_tv3"
+        app:layout_constraintTop_toTopOf="@id/balance_tv"
+        tools:text="-2000" />
+
+    <TextView
+        android:id="@+id/won_tv3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/zero_won"
+        android:text="@string/won"
         android:textSize="@dimen/add_order_text_size"
         app:layout_constraintBottom_toBottomOf="@id/balance_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/balance_tv"
-        tools:text="-2000원" />
+        app:layout_constraintTop_toTopOf="@id/balance_tv" />
 
     <Button
+        android:id="@+id/cancel_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -288,6 +310,7 @@
         app:layout_constraintTop_toBottomOf="@id/balance_tv" />
 
     <Button
+        android:id="@+id/ok_button"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
