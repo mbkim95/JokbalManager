@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.jokbalmanager.model.DayOrder
-import com.example.jokbalmanager.repository.OrderRepository
+import com.example.jokbalmanager.model.dummyData
 
 class DailyViewModel : ViewModel() {
-    private val repository = OrderRepository()
+//    private val repository = OrderRepository()
 
     private val _count = MutableLiveData(0)
     val count: LiveData<Int> get() = _count
@@ -24,6 +24,7 @@ class DailyViewModel : ViewModel() {
     }
 
     fun getMonthOrderData() {
-        _monthOrders.value = repository.getMonthOrders()
+//        _monthOrders.value = repository.getMonthOrders()
+        _monthOrders.value = dummyData
     }
 }
