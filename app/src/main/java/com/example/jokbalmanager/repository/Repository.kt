@@ -16,7 +16,12 @@ class OrderRepository(context: Context) {
         .build()
 
     fun insertOrder(order: OrderEntity) {
-        db.orderDao().insertOrder(order)
+        val searchedOrder = db.orderDao().findOrderByType(order.date, order.type)
+        if (searchedOrder == null) {
+            db.orderDao().insertOrder(order)
+            return
+        }
+        db.orderDao().updateOrderData(order.date, order.type, order.weight, order.deposit)
     }
 
     fun getMonthOrders(year: Int, month: Int): List<DayOrder> {
@@ -25,7 +30,7 @@ class OrderRepository(context: Context) {
         var m = month.toString()
         if (m.length == 1) m = "0$month"
 
-        val start = "${year}-${m}-0$1"
+        val start = "${year}-${m}-01"
         val end = "${year}-${m}-${cal.getActualMaximum(Calendar.DAY_OF_MONTH)}"
 
         val orders = db.orderDao().getOrderData(start, end)
