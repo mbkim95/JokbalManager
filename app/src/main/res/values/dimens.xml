@@ -3,4 +3,8 @@
     <dimen name="date_button_text_size">16dp</dimen>
     <dimen name="item_text_size">16dp</dimen>
     <dimen name="item_detail_text_size">14dp</dimen>
+    <dimen name="add_order_title">32dp</dimen>
+    <dimen name="add_order_text_size">24dp</dimen>
+    <dimen name="popup_width">400dp</dimen>
+    <dimen name="popup_height">480dp</dimen>
 </resources>

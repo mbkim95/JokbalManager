@@ -9,4 +9,20 @@
     <string name="mix_leg">혼합</string>
     <string name="zero_balance">0원</string>
     <string name="zero_weight">0kg</string>
+    <string name="add_order_text">추가하기</string>
+    <string name="date">날짜</string>
+    <string name="year">년</string>
+    <string name="month">월</string>
+    <string name="day">일</string>
+    <string name="weight">중량</string>
+    <string name="kg">kg</string>
+    <string name="price">단가</string>
+    <string name="won_kg">원/kg</string>
+    <string name="total_price">금액</string>
+    <string name="deposit">입금</string>
+    <string name="won">원</string>
+    <string name="balance">차액</string>
+    <string name="zero_won">0원</string>
+    <string name="add">추가</string>
+    <string name="cancel">취소</string>
 </resources>

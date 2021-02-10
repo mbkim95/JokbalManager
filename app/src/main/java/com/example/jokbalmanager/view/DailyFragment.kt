@@ -59,6 +59,12 @@ class DailyFragment : Fragment() {
                 adapter = dailyAdapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
+            addButton.setOnClickListener {
+                AddOrderDialogFragment().show(
+                    childFragmentManager,
+                    AddOrderDialogFragment::class.java.simpleName
+                )
+            }
         }
     }
 
