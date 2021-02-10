@@ -17,15 +17,18 @@ fun getPreviousMonth(prevCount: Int): String {
 
 fun getDaysOfPreviousMonthList(year: Int, month: Int): List<String> {
     val dates = mutableListOf<String>()
-    val dateFormat = SimpleDateFormat("yyyy-MM", Locale.KOREA)
     val cal = Calendar.getInstance()
     cal.set(year, month - 1, 1)
+
+    var m = month.toString()
+    if (m.length == 1) m = "0$month"
+
     val days = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
     for (i in 1..days) {
         val date: String = if (i < 10) {
-            "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH) + 1}-0$i"
+            "$year-$m-0$i"
         } else {
-            "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH) + 1}-$i"
+            "$year-$m-$i"
         }
         dates.add(date)
     }

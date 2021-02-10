@@ -14,7 +14,7 @@ fun generateDummyData(year: Int, month: Int): MutableList<DayOrder> {
     val orders = mutableListOf<DayOrder>()
     val days = getDaysOfPreviousMonthList(year, month)
     days.forEach {
-        orders.add(DayOrder(it, listOf()))
+        orders.add(DayOrder(it, mutableListOf()))
     }
     return orders
 }

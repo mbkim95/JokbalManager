@@ -1,125 +1,125 @@
 package com.example.jokbalmanager.model
 
-val dummyData = listOf(
+val dummyData = mutableListOf(
     DayOrder(
-        "2021-02-01", listOf(
+        "2021-02-01", mutableListOf(
             Order(Jok.FRONT, 10000, 1.8, 20000),
             Order(Jok.MIX, 10000, 2.2, 20000),
             Order(Jok.BACK, 10000, 1.4, 15000),
         )
     ),
     DayOrder(
-        "2021-02-02", listOf(Order(Jok.FRONT, 10000, 1.8, 20000))
+        "2021-02-02", mutableListOf(Order(Jok.FRONT, 10000, 1.8, 20000))
     ),
     DayOrder(
-        "2021-02-03", listOf(
+        "2021-02-03", mutableListOf(
             Order(Jok.BACK, 7800, 2.0, 18000),
             Order(Jok.FRONT, 10000, 1.8, 20000),
         )
     ),
     DayOrder(
         "2021-02-04",
-        listOf(
+        mutableListOf(
             Order(Jok.FRONT, 10000, 1.8, 20000),
             Order(Jok.MIX, 10000, 1.8, 20000),
         )
     ),
     DayOrder(
         "2021-02-05",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
-        "2021-02-06", listOf(
+        "2021-02-06", mutableListOf(
             Order(Jok.FRONT, 10000, 1.8, 20000)
         )
     ),
     DayOrder(
         "2021-02-07",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-08",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-09",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-10",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-11",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-12",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-13",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-14",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-15",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-16",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-17",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-18",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-19",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-20",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-21",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-22",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-23",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-24",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-25",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-26",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-27",
-        listOf()
+        mutableListOf()
     ),
     DayOrder(
         "2021-02-28",
-        listOf(
+        mutableListOf(
             Order(Jok.FRONT, 10000, 1.8, 20000),
             Order(Jok.MIX, 10000, 2.2, 20000),
             Order(Jok.BACK, 10000, 1.4, 15000),

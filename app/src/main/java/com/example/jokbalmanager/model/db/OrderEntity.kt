@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class OrderEntity(
     val date: String,
     val type: Int,
+    val price: Int,
     val weight: Double,
     val deposit: Int,
     @PrimaryKey(autoGenerate = true) val id: Long = 0
