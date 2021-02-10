@@ -11,14 +11,17 @@ import com.example.jokbalmanager.model.DayOrder
 import com.example.jokbalmanager.model.Jok
 import com.example.jokbalmanager.model.Order
 
-class DailyAdapter(private var dates: List<DayOrder>) :
+class DailyAdapter(
+    private var dates: List<DayOrder>,
+    private val itemClickListener: (String, Order) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == ORDER) {
             val binding =
                 DailyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            DailyViewHolder(binding)
+            DailyViewHolder(binding, itemClickListener)
         } else {
             val binding =
                 FooterDailyItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -43,7 +46,10 @@ class DailyAdapter(private var dates: List<DayOrder>) :
         return if (position in dates.indices) ORDER else FOOTER
     }
 
-    class DailyViewHolder(private val binding: DailyItemBinding) :
+    class DailyViewHolder(
+        private val binding: DailyItemBinding,
+        private val itemClickListener: (String, Order) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(day: DayOrder) {
@@ -55,6 +61,24 @@ class DailyAdapter(private var dates: List<DayOrder>) :
                         View.VISIBLE -> View.GONE
                         else -> View.VISIBLE
                     }
+                }
+                front.root.setOnClickListener {
+                    itemClickListener(
+                        day.date,
+                        day.orders.filter { it.type == Jok.FRONT }[0]
+                    )
+                }
+                back.root.setOnClickListener {
+                    itemClickListener(
+                        day.date,
+                        day.orders.filter { it.type == Jok.BACK }[0]
+                    )
+                }
+                mix.root.setOnClickListener {
+                    itemClickListener(
+                        day.date,
+                        day.orders.filter { it.type == Jok.MIX }[0]
+                    )
                 }
             }
         }

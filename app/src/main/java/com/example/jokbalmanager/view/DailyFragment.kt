@@ -19,7 +19,16 @@ class DailyFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: DailyViewModel by viewModels()
     private val dailyAdapter by lazy {
-        DailyAdapter(generateDummyData())
+        DailyAdapter(generateDummyData()) { date, order ->
+            DetailOrderDialogFragment(date, order, fixButtonClickListener = {
+
+            }, deleteButtonClickListener = {
+
+            }).show(
+                childFragmentManager,
+                DetailOrderDialogFragment::class.java.simpleName
+            )
+        }
     }
 
     override fun onCreateView(

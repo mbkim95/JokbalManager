@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/order_info"
+        android:textSize="@dimen/add_order_title"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/type_rg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/title_tv">
+
+        <RadioButton
+            android:id="@+id/front_radio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/front_leg"
+            android:textSize="@dimen/add_order_text_size" />
+
+        <RadioButton
+            android:id="@+id/back_radio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/back_leg"
+            android:textSize="@dimen/add_order_text_size" />
+
+        <RadioButton
+            android:id="@+id/mix_radio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/mix_leg"
+            android:textSize="@dimen/add_order_text_size" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/date"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintStart_toStartOf="@id/title_tv"
+        app:layout_constraintTop_toBottomOf="@id/type_rg" />
+
+    <EditText
+        android:id="@+id/year_et"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:inputType="number"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/date_tv"
+        app:layout_constraintEnd_toStartOf="@id/year_tv"
+        app:layout_constraintTop_toTopOf="@id/date_tv"
+        tools:text="2021" />
+
+    <TextView
+        android:id="@+id/year_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/year"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/date_tv"
+        app:layout_constraintEnd_toStartOf="@id/month_et"
+        app:layout_constraintTop_toTopOf="@id/date_tv" />
+
+    <EditText
+        android:id="@+id/month_et"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:inputType="number"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/date_tv"
+        app:layout_constraintEnd_toStartOf="@id/month_tv"
+        app:layout_constraintTop_toTopOf="@id/date_tv"
+        tools:text="02" />
+
+    <TextView
+        android:id="@+id/month_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/month"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/date_tv"
+        app:layout_constraintEnd_toStartOf="@id/day_et"
+        app:layout_constraintTop_toTopOf="@id/date_tv" />
+
+    <EditText
+        android:id="@+id/day_et"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:inputType="number"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/date_tv"
+        app:layout_constraintEnd_toStartOf="@id/day_tv"
+        app:layout_constraintTop_toTopOf="@id/date_tv"
+        tools:text="10" />
+
+    <TextView
+        android:id="@+id/day_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/day"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/date_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/date_tv" />
+
+    <TextView
+        android:id="@+id/weight_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/weight"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintStart_toStartOf="@id/date_tv"
+        app:layout_constraintTop_toBottomOf="@id/date_tv" />
+
+    <EditText
+        android:id="@+id/weight_et"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/weight_tv"
+        app:layout_constraintEnd_toStartOf="@id/kg_tv"
+        app:layout_constraintTop_toTopOf="@id/weight_tv"
+        tools:text="1.9" />
+
+    <TextView
+        android:id="@+id/kg_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/kg"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/weight_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/weight_tv" />
+
+    <TextView
+        android:id="@+id/price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/price"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintStart_toStartOf="@id/weight_tv"
+        app:layout_constraintTop_toBottomOf="@id/weight_tv" />
+
+    <EditText
+        android:id="@+id/price_et"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:inputType="number"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/price_tv"
+        app:layout_constraintEnd_toStartOf="@id/per_tv"
+        app:layout_constraintTop_toTopOf="@id/price_tv"
+        tools:text="10000" />
+
+    <TextView
+        android:id="@+id/per_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/won_kg"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/price_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/price_tv" />
+
+    <TextView
+        android:id="@+id/price_ttitle_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/total_price"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintStart_toStartOf="@id/price_tv"
+        app:layout_constraintTop_toBottomOf="@id/price_tv" />
+
+    <TextView
+        android:id="@+id/total_price_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/price_ttitle_tv"
+        app:layout_constraintEnd_toStartOf="@id/won_tv2"
+        app:layout_constraintTop_toTopOf="@id/price_ttitle_tv" />
+
+    <TextView
+        android:id="@+id/won_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/won"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/price_ttitle_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/price_ttitle_tv" />
+
+    <TextView
+        android:id="@+id/deposit_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/deposit"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintStart_toStartOf="@id/price_ttitle_tv"
+        app:layout_constraintTop_toBottomOf="@id/price_ttitle_tv" />
+
+    <EditText
+        android:id="@+id/deposit_et"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:gravity="center"
+        android:inputType="number"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/deposit_tv"
+        app:layout_constraintEnd_toStartOf="@id/won_tv"
+        app:layout_constraintTop_toTopOf="@id/deposit_tv"
+        tools:text="12000" />
+
+    <TextView
+        android:id="@+id/won_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/won"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/deposit_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/deposit_tv" />
+
+    <TextView
+        android:id="@+id/balance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/balance"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintStart_toStartOf="@id/deposit_tv"
+        app:layout_constraintTop_toBottomOf="@id/deposit_tv" />
+
+    <TextView
+        android:id="@+id/total_balance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zero"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/balance_tv"
+        app:layout_constraintEnd_toStartOf="@id/won_tv3"
+        app:layout_constraintTop_toTopOf="@id/balance_tv"
+        tools:text="-2000" />
+
+    <TextView
+        android:id="@+id/won_tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/won"
+        android:textSize="@dimen/add_order_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/balance_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/balance_tv" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/delete"
+        android:textSize="@dimen/detail_order_button_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/balance_tv" />
+
+    <Button
+        android:id="@+id/fix_button"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="@string/fix"
+        android:textSize="@dimen/detail_order_button_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/ok_button"
+        app:layout_constraintEnd_toStartOf="@id/ok_button"
+        app:layout_constraintStart_toEndOf="@id/delete_button"
+        app:layout_constraintTop_toTopOf="@id/ok_button" />
+
+    <Button
+        android:id="@+id/ok_button"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/ok"
+        android:textSize="@dimen/detail_order_button_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/balance_tv" />
+
+    <Button
+        android:id="@+id/fix_cancel_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/cancel"
+        android:textSize="@dimen/add_order_text_size"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/balance_tv" />
+
+    <Button
+        android:id="@+id/fix_ok_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/add"
+        android:textSize="@dimen/add_order_text_size"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/balance_tv" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
