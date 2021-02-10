@@ -39,6 +39,7 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                     return@setOnClickListener
                 }
                 addButtonClickListener.invoke(makeOrderEntity())
+                dismiss()
             }
             weightEt.addTextChangedListener {
                 if (it.isNullOrEmpty() || priceEt.text.isNullOrEmpty()) {
@@ -50,11 +51,19 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                     it.toString().toDouble()
                 } catch (e: NumberFormatException) {
                     totalPriceTv.text = "0"
+                    totalBalanceTv.text = "0"
                     return@addTextChangedListener
                 }
-
                 totalPriceTv.text =
                     "${(priceEt.text.toString().toInt() * it.toString().toDouble()).toInt()}"
+
+                if (depositEt.text.isNullOrEmpty()) {
+                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
+                } else {
+                    totalBalanceTv.text = "${
+                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
+                    }"
+                }
             }
 
             priceEt.addTextChangedListener {
@@ -64,6 +73,14 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                 }
                 totalPriceTv.text =
                     "${(it.toString().toInt() * weightEt.text.toString().toDouble()).toInt()}"
+
+                if (depositEt.text.isNullOrEmpty()) {
+                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
+                } else {
+                    totalBalanceTv.text = "${
+                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
+                    }"
+                }
             }
 
             depositEt.addTextChangedListener {
@@ -136,16 +153,10 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
             var day = dayEt.text.toString()
             if (day.length == 1) day = "0$day"
 
-            val type = when (typeRg.id) {
-                frontRadio.id -> 0
-                backRadio.id -> 1
-                else -> 2
-            }
-
+            val type = if (frontRadio.isChecked) 0 else if (backRadio.isChecked) 1 else 2
             val price = priceEt.text.toString().toInt()
             val weight = weightEt.text.toString().toDouble()
             val deposit = depositEt.text.toString().toInt()
-
             return OrderEntity("${yearEt.text}-${month}-$day", type, price, weight, deposit)
         }
     }

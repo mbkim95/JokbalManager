@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.jokbalmanager.model.DayOrder
+import com.example.jokbalmanager.model.db.OrderEntity
 import com.example.jokbalmanager.repository.OrderRepository
 import java.util.*
 
@@ -45,6 +46,11 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
             month--
         }
         _count.value = _count.value?.minus(1)
+        getMonthOrderData()
+    }
+
+    fun addOrderData(order: OrderEntity) {
+        repository.insertOrder(order)
         getMonthOrderData()
     }
 

@@ -15,17 +15,19 @@ class OrderRepository(context: Context) {
         .allowMainThreadQueries()
         .build()
 
+    fun insertOrder(order: OrderEntity) {
+        db.orderDao().insertOrder(order)
+    }
+
     fun getMonthOrders(year: Int, month: Int): List<DayOrder> {
         val cal = Calendar.getInstance()
         cal.set(year, month - 1, 1)
-        val start =
-            "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH) + 1}-${cal.get(Calendar.DATE)}"
-        val end =
-            "${cal.get(Calendar.YEAR)}-${cal.get(Calendar.MONTH) + 1}-${
-                cal.getActualMaximum(
-                    Calendar.DAY_OF_MONTH
-                )
-            }"
+        var m = month.toString()
+        if (m.length == 1) m = "0$month"
+
+        val start = "${year}-${m}-0$1"
+        val end = "${year}-${m}-${cal.getActualMaximum(Calendar.DAY_OF_MONTH)}"
+
         val orders = db.orderDao().getOrderData(start, end)
         return convertEntityToOrder(orders, year, month)
     }

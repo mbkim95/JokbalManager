@@ -61,7 +61,7 @@ class DailyFragment : Fragment() {
             }
             addButton.setOnClickListener {
                 AddOrderDialogFragment { order ->
-
+                    viewModel.addOrderData(order)
                 }.show(
                     childFragmentManager,
                     AddOrderDialogFragment::class.java.simpleName

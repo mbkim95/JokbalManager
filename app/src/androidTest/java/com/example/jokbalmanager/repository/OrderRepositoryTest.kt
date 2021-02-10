@@ -18,10 +18,12 @@ import java.io.IOException
 class OrderRepositoryTest {
     private lateinit var orderDao: OrderDao
     private lateinit var db: AppDatabase
+    private lateinit var repository: OrderRepository
 
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
+        repository = OrderRepository(context)
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         orderDao = db.orderDao()
     }
@@ -35,12 +37,13 @@ class OrderRepositoryTest {
     @Test
     @Throws(Exception::class)
     fun dbTest() {
-        orderDao.insertOrder(OrderEntity("2021-02-10", 1, 1.8, 3000))
-        orderDao.insertOrder(OrderEntity("2021-02-01", 1, 1.8, 5000))
-        orderDao.insertOrder(OrderEntity("2021-02-12", 3, 2.8, 6700))
-        orderDao.insertOrder(OrderEntity("2021-02-01", 2, 1.8, 3000))
-        orderDao.insertOrder(OrderEntity("2021-01-03", 0, 3.2, 64000))
+        orderDao.insertOrder(OrderEntity("2021-02-10", 1, 10000, 1.8, 20000))
+        orderDao.insertOrder(OrderEntity("2021-02-01", 1, 20000, 1.8, 52000))
+        orderDao.insertOrder(OrderEntity("2021-02-20", 1, 19000, 1.4, 170000))
+        orderDao.insertOrder(OrderEntity("2021-02-14", 1, 10000, 1.8, 23000))
+        orderDao.insertOrder(OrderEntity("2021-02-10", 1, 15000, 2.0, 19000))
+
         val order = orderDao.getOrderData("2021-02-01", "2021-02-28")
-        assertEquals(4, order.size)
+        assertEquals(5, order.size)
     }
 }
