@@ -21,7 +21,7 @@ class DailyFragment : Fragment() {
     private val dailyAdapter by lazy {
         DailyAdapter(generateDummyData()) { date, order ->
             DetailOrderDialogFragment(date, order, fixButtonClickListener = {
-
+                viewModel.updateOrder(date, it.type, it)
             }, deleteButtonClickListener = {
                 viewModel.deleteOrder(it)
             }).show(

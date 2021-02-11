@@ -21,7 +21,7 @@ class OrderRepository(context: Context) {
             db.orderDao().insertOrder(order)
             return
         }
-        db.orderDao().updateOrderData(order.date, order.type, order.weight, order.deposit)
+        db.orderDao().addSameDate(order.date, order.type, order.weight, order.deposit)
     }
 
     fun getMonthOrders(year: Int, month: Int): List<DayOrder> {
@@ -39,6 +39,10 @@ class OrderRepository(context: Context) {
 
     fun deleteOrder(order: OrderEntity) {
         db.orderDao().deleteOrder(order)
+    }
+
+    fun updateOrder(date: String, type: Int, order: OrderEntity) {
+        db.orderDao().updateOrder(date, type, order.date, order.price, order.weight, order.deposit)
     }
 
     private fun convertEntityToOrder(

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.example.jokbalmanager.databinding.DetailOrderLayoutBinding
 import com.example.jokbalmanager.model.Jok
@@ -14,8 +15,8 @@ import com.example.jokbalmanager.model.db.OrderEntity
 import java.util.*
 
 class DetailOrderDialogFragment(
-    private val date: String,
-    private val order: Order,
+    private var date: String,
+    private var order: Order,
     private val fixButtonClickListener: (OrderEntity) -> Unit,
     private val deleteButtonClickListener: (OrderEntity) -> Unit
 ) :
@@ -34,7 +35,10 @@ class DetailOrderDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val cal = Calendar.getInstance()
+        bindView(date, order)
+    }
+
+    private fun bindView(date: String, order: Order) {
         binding.apply {
             yearEt.setText(date.substring(0, 4))
             monthEt.setText(date.substring(5, 7))
@@ -51,72 +55,94 @@ class DetailOrderDialogFragment(
             totalBalanceTv.text = ((order.weight * order.price).toInt() - order.deposit).toString()
 
             okButton.setOnClickListener {
-                fixButtonClickListener(makeOrderEntity())
                 dismiss()
             }
             deleteButton.setOnClickListener {
                 deleteButtonClickListener(makeOrderEntity())
                 dismiss()
             }
+            fixButton.setOnClickListener {
+                detailButtonLayout.visibility = View.GONE
+                fixOrderLayout.visibility = View.VISIBLE
+                enableEdit()
+            }
+            fixOkButton.setOnClickListener {
+                if (!isAllValueNotNull() || !isDateCorrect()) {
+                    return@setOnClickListener
+                }
+                fixButtonClickListener(makeOrderEntity())
+                detailButtonLayout.visibility = View.VISIBLE
+                fixOrderLayout.visibility = View.GONE
+                disableEdit()
+            }
+            fixCancelButton.setOnClickListener {
+                detailButtonLayout.visibility = View.VISIBLE
+                fixOrderLayout.visibility = View.GONE
+                setOrder(date, order)
+                disableEdit()
+            }
 
-//            okButton.setOnClickListener {
-//                if (!isAllValueNotNull() || !isDateCorrect()) {
-//                    return@setOnClickListener
-//                }
-//                addButtonClickListener.invoke(makeOrderEntity())
-//                dismiss()
-//            }
-//            weightEt.addTextChangedListener {
-//                if (it.isNullOrEmpty() || priceEt.text.isNullOrEmpty()) {
-//                    totalPriceTv.text = "0"
-//                    return@addTextChangedListener
-//                }
-//
-//                try {
-//                    it.toString().toDouble()
-//                } catch (e: NumberFormatException) {
-//                    totalPriceTv.text = "0"
-//                    totalBalanceTv.text = "0"
-//                    return@addTextChangedListener
-//                }
-//                totalPriceTv.text =
-//                    "${(priceEt.text.toString().toInt() * it.toString().toDouble()).toInt()}"
-//
-//                if (depositEt.text.isNullOrEmpty()) {
-//                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
-//                } else {
-//                    totalBalanceTv.text = "${
-//                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
-//                    }"
-//                }
-//            }
-//
-//            priceEt.addTextChangedListener {
-//                if (it.isNullOrEmpty() || weightEt.text.isNullOrEmpty()) {
-//                    totalPriceTv.text = "0"
-//                    return@addTextChangedListener
-//                }
-//                totalPriceTv.text =
-//                    "${(it.toString().toInt() * weightEt.text.toString().toDouble()).toInt()}"
-//
-//                if (depositEt.text.isNullOrEmpty()) {
-//                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
-//                } else {
-//                    totalBalanceTv.text = "${
-//                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
-//                    }"
-//                }
-//            }
-//
-//            depositEt.addTextChangedListener {
-//                if (it.isNullOrEmpty()) {
-//                    totalBalanceTv.text = "0"
-//                    return@addTextChangedListener
-//                }
-//                totalBalanceTv.text =
-//                    "${(totalPriceTv.text.toString().toInt() - it.toString().toInt())}"
-//            }
+            okButton.setOnClickListener {
+                dismiss()
+            }
+
+            weightEt.addTextChangedListener {
+                if (it.isNullOrEmpty() || priceEt.text.isNullOrEmpty()) {
+                    totalPriceTv.text = "0"
+                    return@addTextChangedListener
+                }
+
+                try {
+                    it.toString().toDouble()
+                } catch (e: NumberFormatException) {
+                    totalPriceTv.text = "0"
+                    totalBalanceTv.text = "0"
+                    return@addTextChangedListener
+                }
+                totalPriceTv.text =
+                    "${(priceEt.text.toString().toInt() * it.toString().toDouble()).toInt()}"
+
+                if (depositEt.text.isNullOrEmpty()) {
+                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
+                } else {
+                    totalBalanceTv.text = "${
+                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
+                    }"
+                }
+            }
+
+            priceEt.addTextChangedListener {
+                if (it.isNullOrEmpty() || weightEt.text.isNullOrEmpty()) {
+                    totalPriceTv.text = "0"
+                    return@addTextChangedListener
+                }
+                totalPriceTv.text =
+                    "${(it.toString().toInt() * weightEt.text.toString().toDouble()).toInt()}"
+
+                if (depositEt.text.isNullOrEmpty()) {
+                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
+                } else {
+                    totalBalanceTv.text = "${
+                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
+                    }"
+                }
+            }
+
+            depositEt.addTextChangedListener {
+                if (it.isNullOrEmpty()) {
+                    totalBalanceTv.text = "0"
+                    return@addTextChangedListener
+                }
+                totalBalanceTv.text =
+                    "${(totalPriceTv.text.toString().toInt() - it.toString().toInt())}"
+            }
         }
+    }
+
+    fun setOrder(date: String, order: Order) {
+        this.date = date
+        this.order = order
+        bindView(date, order)
     }
 
     override fun onResume() {
@@ -146,6 +172,37 @@ class DetailOrderDialogFragment(
             }
         }
         return true
+    }
+
+    private fun enableEdit() {
+        binding.apply {
+            yearEt.isFocusableInTouchMode = true
+            monthEt.isFocusableInTouchMode = true
+            dayEt.isFocusableInTouchMode = true
+            weightEt.isFocusableInTouchMode = true
+            priceEt.isFocusableInTouchMode = true
+            depositEt.isFocusableInTouchMode = true
+        }
+    }
+
+    private fun disableEdit() {
+        binding.apply {
+            yearEt.disableView()
+            yearEt.disableView()
+            monthEt.disableView()
+            dayEt.disableView()
+            weightEt.disableView()
+            priceEt.disableView()
+            depositEt.disableView()
+        }
+    }
+
+    private fun View.disableView() {
+        this.apply {
+            isFocusableInTouchMode = false
+            isFocusable = false
+            isClickable = false
+        }
     }
 
     private fun isDateCorrect(): Boolean {

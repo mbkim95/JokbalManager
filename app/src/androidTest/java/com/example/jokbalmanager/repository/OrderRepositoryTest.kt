@@ -51,9 +51,9 @@ class OrderRepositoryTest {
     }
 
     @Test
-    fun updateTest() {
+    fun addSameOrderTest() {
         orderDao.insertOrder(OrderEntity("2021-02-14", 0, 10000, 1.8, 23000))
-        orderDao.updateOrderData("2021-02-14", 0, 1.2, 7000)
+        orderDao.addSameDate("2021-02-14", 0, 1.2, 7000)
         val order = orderDao.findOrderByType("2021-02-14", 0)
         order?.let {
             assertEquals(3.0, it.weight)
@@ -67,5 +67,17 @@ class OrderRepositoryTest {
         orderDao.deleteOrder(OrderEntity("2021-02-14", 0, 10000, 1.8, 23000))
         val order = orderDao.findOrderByType("2021-02-14", 0)
         assertNull(order)
+    }
+
+    @Test
+    fun updateTest() {
+        orderDao.insertOrder(OrderEntity("2021-02-14", 0, 10000, 1.8, 23000))
+        orderDao.updateOrder("2021-02-12", 0, "2021-02-14", 5000, 1.0, 2000)
+        val order = orderDao.findOrderByType("2021-02-12", 0)
+        order?.let {
+            assertEquals(5000, it.price)
+            assertEquals(1.0, it.weight)
+            assertEquals(2000, it.deposit)
+        }
     }
 }

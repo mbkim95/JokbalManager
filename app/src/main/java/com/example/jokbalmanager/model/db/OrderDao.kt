@@ -17,8 +17,11 @@ interface OrderDao {
     fun findOrderByType(date: String, type: Int): OrderEntity?
 
     @Query("UPDATE orders SET weight = weight + :weight, deposit = deposit + :deposit WHERE date = :date AND type = :type")
-    fun updateOrderData(date: String, type: Int, weight: Double, deposit: Int)
+    fun addSameDate(date: String, type: Int, weight: Double, deposit: Int)
 
     @Delete
     fun deleteOrder(order: OrderEntity)
+
+    @Query("UPDATE orders SET date = :date, price = :price, weight = :weight, deposit = :deposit  WHERE date = :prevDate AND type = :type")
+    fun updateOrder(prevDate: String, type: Int, date: String, price: Int, weight: Double, deposit: Int)
 }

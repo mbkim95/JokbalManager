@@ -59,6 +59,11 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
         getMonthOrderData()
     }
 
+    fun updateOrder(prevDate: String, type: Int, order: OrderEntity) {
+        repository.updateOrder(prevDate, type, order)
+        getMonthOrderData()
+    }
+
     fun getMonthOrderData() {
         _monthOrders.value = repository.getMonthOrders(year, month)
     }
