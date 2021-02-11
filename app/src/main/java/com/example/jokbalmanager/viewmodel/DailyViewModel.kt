@@ -65,6 +65,6 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getMonthOrderData() {
-        _monthOrders.value = repository.getMonthOrders(year, month)
+        _monthOrders.value =    repository.getMonthOrders(year, month)
     }
 }

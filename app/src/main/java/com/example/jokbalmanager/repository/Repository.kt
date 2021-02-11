@@ -42,6 +42,13 @@ class OrderRepository(context: Context) {
     }
 
     fun updateOrder(date: String, type: Int, order: OrderEntity) {
+        val searchedOrder = db.orderDao().findOrderByType(order.date, order.type)
+        // 날짜를 수정했더니 기존에 있는 품목에 추가해야하는 경우에는 수정 전 데이터를 삭제하고 기존에 있던 품목에 더해준다
+        if (searchedOrder != null) {
+            db.orderDao().deleteOrder(OrderEntity(date, type, order.price, order.weight, order.deposit))
+            db.orderDao().addSameDate(order.date, order.type, order.weight, order.deposit)
+            return
+        }
         db.orderDao().updateOrder(date, type, order.date, order.price, order.weight, order.deposit)
     }
 
