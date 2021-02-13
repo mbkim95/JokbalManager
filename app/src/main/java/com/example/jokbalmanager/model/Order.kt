@@ -6,7 +6,7 @@ enum class Jok {
 
 data class Order(
     var type: Jok,
-    var price: Int,
+    var price: Long,
     var weight: Double,
-    var deposit: Int
+    var deposit: Long
 )

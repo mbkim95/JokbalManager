@@ -55,13 +55,13 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                     return@addTextChangedListener
                 }
                 totalPriceTv.text =
-                    "${(priceEt.text.toString().toInt() * it.toString().toDouble()).toInt()}"
+                    "${(priceEt.text.toString().toLong() * it.toString().toDouble()).toLong()}"
 
                 if (depositEt.text.isNullOrEmpty()) {
-                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
+                    totalBalanceTv.text = "${totalPriceTv.text.toString().toLong()}"
                 } else {
                     totalBalanceTv.text = "${
-                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
+                        (totalPriceTv.text.toString().toLong() - depositEt.text.toString().toLong())
                     }"
                 }
             }
@@ -72,13 +72,13 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                     return@addTextChangedListener
                 }
                 totalPriceTv.text =
-                    "${(it.toString().toInt() * weightEt.text.toString().toDouble()).toInt()}"
+                    "${(it.toString().toLong() * weightEt.text.toString().toDouble()).toLong()}"
 
                 if (depositEt.text.isNullOrEmpty()) {
-                    totalBalanceTv.text = "${totalPriceTv.text.toString().toInt()}"
+                    totalBalanceTv.text = "${totalPriceTv.text.toString().toLong()}"
                 } else {
                     totalBalanceTv.text = "${
-                        (totalPriceTv.text.toString().toInt() - depositEt.text.toString().toInt())
+                        (totalPriceTv.text.toString().toLong() - depositEt.text.toString().toLong())
                     }"
                 }
             }
@@ -89,7 +89,7 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                     return@addTextChangedListener
                 }
                 totalBalanceTv.text =
-                    "${(totalPriceTv.text.toString().toInt() - it.toString().toInt())}"
+                    "${(totalPriceTv.text.toString().toLong() - it.toString().toLong())}"
             }
         }
     }
@@ -154,9 +154,9 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
             if (day.length == 1) day = "0$day"
 
             val type = if (frontRadio.isChecked) 0 else if (backRadio.isChecked) 1 else 2
-            val price = priceEt.text.toString().toInt()
+            val price = priceEt.text.toString().toLong()
             val weight = weightEt.text.toString().toDouble()
-            val deposit = depositEt.text.toString().toInt()
+            val deposit = depositEt.text.toString().toLong()
             return OrderEntity("${yearEt.text}-${month}-$day", type, price, weight, deposit)
         }
     }

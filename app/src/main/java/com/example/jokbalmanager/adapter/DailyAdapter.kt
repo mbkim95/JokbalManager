@@ -74,8 +74,8 @@ class DailyAdapter(
             }
         }
 
-        private fun calculateBalance(order: Order): Int {
-            return ((order.price * order.weight).toInt() - order.deposit)
+        private fun calculateBalance(order: Order): Long {
+            return ((order.price * order.weight).toLong() - order.deposit)
         }
 
         private fun bindOrderDetail(orders: List<Order>) {
@@ -92,8 +92,8 @@ class DailyAdapter(
             }
 
             var totalWeight = 0.0
-            var totalBalance = 0
-            var totalPrice = 0
+            var totalBalance = 0L
+            var totalPrice = 0L
             orders.forEach {
                 totalWeight += it.weight
                 totalBalance += calculateBalance(it)

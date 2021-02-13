@@ -6,7 +6,7 @@ import androidx.room.Entity
 data class OrderEntity(
     val date: String,
     val type: Int,
-    val price: Int,
+    val price: Long,
     val weight: Double,
-    val deposit: Int
+    val deposit: Long
 )
