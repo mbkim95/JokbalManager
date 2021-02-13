@@ -18,6 +18,13 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
     private val _monthOrders = MutableLiveData<List<DayOrder>>()
     val monthOrders: MutableLiveData<List<DayOrder>> get() = _monthOrders
 
+    private val _totalWeight = MutableLiveData<Double>()
+    val totalWeight: LiveData<Double> get() = _totalWeight
+    private val _totalPrice = MutableLiveData<Long>()
+    val totalPrice: LiveData<Long> get() = _totalPrice
+    private val _totalBalance = MutableLiveData<Long>()
+    val totalBalance: LiveData<Long> get() = _totalBalance
+
     private var month: Int
     private var year: Int
 
@@ -65,6 +72,20 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getMonthOrderData() {
-        _monthOrders.value =    repository.getMonthOrders(year, month)
+        var weights = 0.0
+        var prices = 0L
+        var balances = 0L
+        val orders = repository.getMonthOrders(year, month)
+        orders.forEach {
+            it.orders.forEach { order ->
+                weights += order.weight
+                prices += (order.price * order.weight).toLong()
+                balances += (order.price * order.weight - order.deposit).toLong()
+            }
+        }
+        _monthOrders.value = orders
+        _totalWeight.value = weights
+        _totalPrice.value = prices
+        _totalBalance.value = balances
     }
 }

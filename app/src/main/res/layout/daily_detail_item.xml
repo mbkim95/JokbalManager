@@ -9,7 +9,7 @@
         android:id="@+id/order_type_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/text_margin_horizontal"
         android:textSize="@dimen/item_detail_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,9 +18,10 @@
 
     <TextView
         android:id="@+id/weight_text"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/weight_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/text_margin_horizontal"
+        android:gravity="end"
         android:textSize="@dimen/item_detail_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/total_price_text"
@@ -29,24 +30,26 @@
 
     <TextView
         android:id="@+id/total_price_text"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/price_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/text_margin_horizontal"
+        android:gravity="end"
         android:textSize="@dimen/item_detail_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/balance_text"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="18000원" />
+        tools:text="18000000원" />
 
     <TextView
         android:id="@+id/balance_text"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/balance_width"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/text_margin_horizontal"
+        android:gravity="end"
         android:textSize="@dimen/item_detail_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="+2000" />
+        tools:text="-10000000원" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

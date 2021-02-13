@@ -30,4 +30,5 @@
     <string name="ok">확인</string>
     <string name="fix">수정</string>
     <string name="save">저장</string>
+    <string name="total">합계</string>
 </resources>

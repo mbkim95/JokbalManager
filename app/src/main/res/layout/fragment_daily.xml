@@ -18,8 +18,8 @@
             android:id="@+id/prev_month_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/text_margin_horizontal"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
             android:text="@string/left_arrow"
             android:textSize="@dimen/date_button_text_size"
             android:textStyle="bold" />
@@ -28,8 +28,8 @@
             android:id="@+id/current_month_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/text_margin_horizontal"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
             android:layout_weight="1"
             android:textSize="@dimen/date_button_text_size"
             tools:text="2021/1" />
@@ -38,12 +38,103 @@
             android:id="@+id/next_month_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/text_margin_horizontal"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
             android:text="@string/right_arrow"
             android:textSize="@dimen/date_button_text_size"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/total_month_data"
+        layout="@layout/daily_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/month_button_layout">
+
+        <TextView
+            android:id="@+id/total_month_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin_horizontal"
+            android:text="@string/total"
+            android:textSize="@dimen/total_month_text_size"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/total_weight_tv"
+            android:layout_width="@dimen/weight_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
+            android:gravity="center_horizontal"
+            android:text="중량"
+            android:textSize="@dimen/item_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/total_month_tv"
+            app:layout_constraintEnd_toStartOf="@id/total_price_tv"
+            app:layout_constraintTop_toTopOf="@id/total_month_tv" />
+
+
+        <TextView
+            android:id="@+id/total_price_tv"
+            android:layout_width="@dimen/price_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
+            android:gravity="center_horizontal"
+            android:text="금액"
+            android:textSize="@dimen/item_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/total_month_tv"
+            app:layout_constraintEnd_toStartOf="@id/balance_tv"
+            app:layout_constraintTop_toTopOf="@id/total_month_tv" />
+
+        <TextView
+            android:id="@+id/balance_tv"
+            android:layout_width="@dimen/balance_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
+            android:gravity="center_horizontal"
+            android:text="잔고"
+            android:textSize="@dimen/item_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/total_month_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/total_month_tv" />
+
+        <TextView
+            android:id="@+id/total_month_weight_tv"
+            android:layout_width="@dimen/weight_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
+            android:gravity="end"
+            android:textSize="@dimen/item_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/total_month_price_tv"
+            app:layout_constraintEnd_toStartOf="@id/total_month_price_tv"
+            app:layout_constraintTop_toTopOf="@id/total_month_price_tv"
+            tools:text="326.25kg" />
+
+        <TextView
+            android:id="@+id/total_month_price_tv"
+            android:layout_width="@dimen/price_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
+            android:gravity="end"
+            android:textSize="@dimen/item_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/total_month_balance_tv"
+            app:layout_constraintEnd_toStartOf="@id/total_month_balance_tv"
+            app:layout_constraintTop_toTopOf="@id/total_month_balance_tv"
+            tools:text="10000000원" />
+
+        <TextView
+            android:id="@+id/total_month_balance_tv"
+            android:layout_width="@dimen/balance_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin_horizontal"
+            android:gravity="end"
+            android:textSize="@dimen/item_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/total_month_tv"
+            tools:text="+1000000원" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/daily_rv"
@@ -52,7 +143,7 @@
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/month_button_layout"
+        app:layout_constraintTop_toBottomOf="@id/total_month_data"
         tools:listitem="@layout/daily_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

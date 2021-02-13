@@ -47,11 +47,22 @@ class DailyFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.count.observe(viewLifecycleOwner) {
-            binding.currentMonthText.text = getPreviousMonth(it)
-        }
-        viewModel.monthOrders.observe(viewLifecycleOwner) {
-            dailyAdapter.setDates(it)
+        viewModel.apply {
+            count.observe(viewLifecycleOwner) {
+                binding.currentMonthText.text = getPreviousMonth(it)
+            }
+            monthOrders.observe(viewLifecycleOwner) {
+                dailyAdapter.setDates(it)
+            }
+            totalWeight.observe(viewLifecycleOwner) {
+                binding.totalMonthWeightTv.text = "${it}kg"
+            }
+            totalPrice.observe(viewLifecycleOwner) {
+                binding.totalMonthPriceTv.text = "${it}원"
+            }
+            totalBalance.observe(viewLifecycleOwner) {
+                binding.totalMonthBalanceTv.text = "${it}원"
+            }
         }
     }
 
