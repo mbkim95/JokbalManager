@@ -40,9 +40,17 @@ class DetailOrderDialogFragment(
 
     private fun bindView(date: String, order: Order) {
         binding.apply {
-            yearEt.setText(date.substring(0, 4))
-            monthEt.setText(date.substring(5, 7))
-            dayEt.setText(date.subSequence(8, 10))
+            pickDateTv.apply {
+                text = date
+                setOnClickListener {
+                    val year = date.substring(0, 4).toInt()
+                    val month = date.substring(5, 7).toInt()
+                    val day = date.substring(8, 10).toInt()
+                    DayPickerFragment(year, month, day) {
+                        text = it
+                    }.show(childFragmentManager, DayPickerFragment::class.java.simpleName)
+                }
+            }
             when (order.type) {
                 Jok.FRONT -> frontRadio.isChecked = true
                 Jok.BACK -> backRadio.isChecked = true
@@ -67,7 +75,7 @@ class DetailOrderDialogFragment(
                 enableEdit()
             }
             fixOkButton.setOnClickListener {
-                if (!isAllValueNotNull() || !isDateCorrect()) {
+                if (!isAllValueNotNull()) {
                     return@setOnClickListener
                 }
                 fixButtonClickListener(makeOrderEntity())
@@ -166,7 +174,7 @@ class DetailOrderDialogFragment(
                 showToast("품목을 선택해주세요")
                 return false
             }
-            if (yearEt.text.isNullOrEmpty() || monthEt.text.isNullOrEmpty() || dayEt.text.isNullOrEmpty() || weightEt.text.isNullOrEmpty() || depositEt.text.isNullOrEmpty()) {
+            if (weightEt.text.isNullOrEmpty() || depositEt.text.isNullOrEmpty()) {
                 showToast("값을 입력해주세요")
                 return false
             }
@@ -176,9 +184,7 @@ class DetailOrderDialogFragment(
 
     private fun enableEdit() {
         binding.apply {
-            yearEt.isFocusableInTouchMode = true
-            monthEt.isFocusableInTouchMode = true
-            dayEt.isFocusableInTouchMode = true
+            pickDateTv.isClickable = true
             weightEt.isFocusableInTouchMode = true
             priceEt.isFocusableInTouchMode = true
             depositEt.isFocusableInTouchMode = true
@@ -187,10 +193,7 @@ class DetailOrderDialogFragment(
 
     private fun disableEdit() {
         binding.apply {
-            yearEt.disableView()
-            yearEt.disableView()
-            monthEt.disableView()
-            dayEt.disableView()
+            pickDateTv.isClickable = false
             weightEt.disableView()
             priceEt.disableView()
             depositEt.disableView()
@@ -205,41 +208,13 @@ class DetailOrderDialogFragment(
         }
     }
 
-    private fun isDateCorrect(): Boolean {
-        val cal = Calendar.getInstance()
-        val year = binding.yearEt.text.toString().toInt()
-        val month = binding.monthEt.text.toString().toInt()
-        val day = binding.dayEt.text.toString().toInt()
-        cal.set(year, month - 1, 1)
-        val finalDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        if (year < 1900 || year > 2099) {
-            showToast("1900년에서 2099년까지 날짜만 등록 가능합니다.")
-            return false
-        }
-        if (month < 1 || month > 13) {
-            showToast("1월에서 12월까지 날짜만 등록 가능합니다.")
-            return false
-        }
-        if (day < 1 || day > finalDay) {
-            showToast("1일에서 ${finalDay}일까지 날짜만 등록 가능합니다.")
-            return false
-        }
-        return true
-    }
-
     private fun makeOrderEntity(): OrderEntity {
         with(binding) {
-            var month = monthEt.text.toString()
-            if (month.length == 1) month = "0$month"
-            var day = dayEt.text.toString()
-            if (day.length == 1) day = "0$day"
-
             val type = if (frontRadio.isChecked) 0 else if (backRadio.isChecked) 1 else 2
             val price = priceEt.text.toString().toLong()
             val weight = weightEt.text.toString().toDouble()
             val deposit = depositEt.text.toString().toLong()
-            return OrderEntity("${yearEt.text}-${month}-$day", type, price, weight, deposit)
+            return OrderEntity(pickDateTv.text.toString(), type, price, weight, deposit)
         }
     }
 

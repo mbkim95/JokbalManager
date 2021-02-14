@@ -87,6 +87,9 @@ class DailyFragment : Fragment() {
                     AddOrderDialogFragment::class.java.simpleName
                 )
             }
+            currentMonthText.setOnClickListener {
+
+            }
         }
     }
 

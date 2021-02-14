@@ -65,74 +65,16 @@
         app:layout_constraintStart_toStartOf="@id/title_tv"
         app:layout_constraintTop_toBottomOf="@id/type_rg" />
 
-    <EditText
-        android:id="@+id/year_et"
-        android:layout_width="64dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="number"
-        android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/date_tv"
-        app:layout_constraintEnd_toStartOf="@id/year_tv"
-        app:layout_constraintTop_toTopOf="@id/date_tv"
-        tools:text="2021" />
-
     <TextView
-        android:id="@+id/year_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="@string/year"
-        android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/date_tv"
-        app:layout_constraintEnd_toStartOf="@id/month_et"
-        app:layout_constraintTop_toTopOf="@id/date_tv" />
-
-    <EditText
-        android:id="@+id/month_et"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="number"
-        android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/date_tv"
-        app:layout_constraintEnd_toStartOf="@id/month_tv"
-        app:layout_constraintTop_toTopOf="@id/date_tv"
-        tools:text="02" />
-
-    <TextView
-        android:id="@+id/month_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="@string/month"
-        android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/date_tv"
-        app:layout_constraintEnd_toStartOf="@id/day_et"
-        app:layout_constraintTop_toTopOf="@id/date_tv" />
-
-    <EditText
-        android:id="@+id/day_et"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:inputType="number"
-        android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/date_tv"
-        app:layout_constraintEnd_toStartOf="@id/day_tv"
-        app:layout_constraintTop_toTopOf="@id/date_tv"
-        tools:text="10" />
-
-    <TextView
-        android:id="@+id/day_tv"
+        android:id="@+id/pick_date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/day"
         android:textSize="@dimen/add_order_text_size"
         app:layout_constraintBottom_toBottomOf="@id/date_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/date_tv" />
+        app:layout_constraintTop_toTopOf="@id/date_tv"
+        tools:text="2021년 2월 14일" />
 
     <TextView
         android:id="@+id/weight_tv"

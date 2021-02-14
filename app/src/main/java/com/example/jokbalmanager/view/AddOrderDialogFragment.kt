@@ -30,12 +30,25 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
         super.onViewCreated(view, savedInstanceState)
         val cal = Calendar.getInstance()
         binding.apply {
-            yearEt.setText(cal.get(Calendar.YEAR).toString())
-            monthEt.setText((cal.get(Calendar.MONTH) + 1).toString())
-            dayEt.setText(cal.get(Calendar.DATE).toString())
+            val year = cal.get(Calendar.YEAR)
+            var month = (cal.get(Calendar.MONTH) + 1).toString()
+            if (month.length == 1) {
+                month = "0$month"
+            }
+            var day = (cal.get(Calendar.DATE)).toString()
+            if (day.length == 1) {
+                day = "0$day"
+            }
+            pickDateTv.text = "${year}-${month}-${day}"
+            pickDateTv.setOnClickListener {
+                DayPickerFragment(year.toInt(), month.toInt(), day.toInt()) {
+                    pickDateTv.text = it
+                }.show(childFragmentManager, DayPickerFragment::class.java.simpleName)
+            }
+
             cancelButton.setOnClickListener { dismiss() }
             okButton.setOnClickListener {
-                if (!isAllValueNotNull() || !isDateCorrect()) {
+                if (!isAllValueNotNull()) {
                     return@setOnClickListener
                 }
                 addButtonClickListener.invoke(makeOrderEntity())
@@ -115,7 +128,7 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                 showToast("품목을 선택해주세요")
                 return false
             }
-            if (yearEt.text.isNullOrEmpty() || monthEt.text.isNullOrEmpty() || dayEt.text.isNullOrEmpty() || weightEt.text.isNullOrEmpty() || depositEt.text.isNullOrEmpty()) {
+            if (weightEt.text.isNullOrEmpty() || depositEt.text.isNullOrEmpty()) {
                 showToast("값을 입력해주세요")
                 return false
             }
@@ -123,41 +136,13 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
         return true
     }
 
-    private fun isDateCorrect(): Boolean {
-        val cal = Calendar.getInstance()
-        val year = binding.yearEt.text.toString().toInt()
-        val month = binding.monthEt.text.toString().toInt()
-        val day = binding.dayEt.text.toString().toInt()
-        cal.set(year, month - 1, 1)
-        val finalDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        if (year < 1900 || year > 2099) {
-            showToast("1900년에서 2099년까지 날짜만 등록 가능합니다.")
-            return false
-        }
-        if (month < 1 || month > 13) {
-            showToast("1월에서 12월까지 날짜만 등록 가능합니다.")
-            return false
-        }
-        if (day < 1 || day > finalDay) {
-            showToast("1일에서 ${finalDay}일까지 날짜만 등록 가능합니다.")
-            return false
-        }
-        return true
-    }
-
     private fun makeOrderEntity(): OrderEntity {
         with(binding) {
-            var month = monthEt.text.toString()
-            if (month.length == 1) month = "0$month"
-            var day = dayEt.text.toString()
-            if (day.length == 1) day = "0$day"
-
             val type = if (frontRadio.isChecked) 0 else if (backRadio.isChecked) 1 else 2
             val price = priceEt.text.toString().toLong()
             val weight = weightEt.text.toString().toDouble()
             val deposit = depositEt.text.toString().toLong()
-            return OrderEntity("${yearEt.text}-${month}-$day", type, price, weight, deposit)
+            return OrderEntity(pickDateTv.text.toString(), type, price, weight, deposit)
         }
     }
 
