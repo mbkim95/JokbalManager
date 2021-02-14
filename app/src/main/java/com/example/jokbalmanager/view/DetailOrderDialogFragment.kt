@@ -184,7 +184,7 @@ class DetailOrderDialogFragment(
 
     private fun enableEdit() {
         binding.apply {
-            pickDateTv.isClickable = true
+            pickDateTv.isEnabled = true
             weightEt.isFocusableInTouchMode = true
             priceEt.isFocusableInTouchMode = true
             depositEt.isFocusableInTouchMode = true
@@ -193,7 +193,7 @@ class DetailOrderDialogFragment(
 
     private fun disableEdit() {
         binding.apply {
-            pickDateTv.isClickable = false
+            pickDateTv.isEnabled = false
             weightEt.disableView()
             priceEt.disableView()
             depositEt.disableView()
