@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.jokbalmanager.adapter.TotalAdapter
 import com.example.jokbalmanager.databinding.FragmentTotalBinding
 import com.example.jokbalmanager.util.generateYearDummyData
+import com.example.jokbalmanager.util.getPreviousYear
 import com.example.jokbalmanager.viewmodel.TotalViewModel
 
 class TotalFragment : Fragment() {
@@ -58,7 +59,7 @@ class TotalFragment : Fragment() {
     private fun observeData() {
         viewModel.apply {
             count.observe(viewLifecycleOwner) {
-
+                binding.currentYearText.text = getPreviousYear(it)
             }
             yearOrder.observe(viewLifecycleOwner) {
                 totalAdapter.setOrders(it)

@@ -15,6 +15,13 @@ fun getPreviousMonth(prevCount: Int): String {
     return dateFormat.format(cal.time).toString()
 }
 
+fun getPreviousYear(prevCount: Int): String {
+    val dateFormat = SimpleDateFormat("yyyy", Locale.KOREA)
+    val cal = Calendar.getInstance()
+    cal.add(Calendar.YEAR, prevCount)
+    return dateFormat.format(cal.time).toString()
+}
+
 fun getDaysOfPreviousMonthList(year: Int, month: Int): List<String> {
     val dates = mutableListOf<String>()
     val cal = Calendar.getInstance()
