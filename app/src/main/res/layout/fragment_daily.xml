@@ -8,7 +8,7 @@
     tools:context=".view.DailyFragment">
 
     <LinearLayout
-        android:id="@+id/month_button_layout"
+        android:id="@+id/year_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -50,7 +50,7 @@
         layout="@layout/daily_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/month_button_layout">
+        app:layout_constraintTop_toBottomOf="@id/year_button_layout">
 
         <TextView
             android:id="@+id/total_month_tv"

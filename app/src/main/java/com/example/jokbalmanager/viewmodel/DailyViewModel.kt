@@ -10,7 +10,7 @@ import com.example.jokbalmanager.repository.OrderRepository
 import java.util.*
 
 class DailyViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = OrderRepository(application)
+    private val repository = OrderRepository.getInstance(application)
 
     private val _count = MutableLiveData(0)
     val count: LiveData<Int> get() = _count

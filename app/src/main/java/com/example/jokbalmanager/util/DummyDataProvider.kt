@@ -1,6 +1,7 @@
 package com.example.jokbalmanager.util
 
 import com.example.jokbalmanager.model.DayOrder
+import com.example.jokbalmanager.model.MonthOrder
 import java.util.*
 
 fun generateDummyData(): MutableList<DayOrder> {
@@ -17,4 +18,11 @@ fun generateDummyData(year: Int, month: Int): MutableList<DayOrder> {
         orders.add(DayOrder(it, mutableListOf()))
     }
     return orders
+}
+
+fun generateYearDummyData(): MutableList<MonthOrder> {
+    val year = Calendar.getInstance().get(Calendar.YEAR)
+    return MutableList(12) {
+        MonthOrder("${year}-${it + 1}", 0, 0.0, 0)
+    }
 }

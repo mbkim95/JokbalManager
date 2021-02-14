@@ -1,6 +1,7 @@
 package com.example.jokbalmanager.repository
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -24,7 +25,7 @@ class OrderRepositoryTest {
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        repository = OrderRepository(context)
+        repository = OrderRepository.getInstance(context)
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         orderDao = db.orderDao()
     }
@@ -78,6 +79,17 @@ class OrderRepositoryTest {
             assertEquals(5000, it.price)
             assertEquals(1.0, it.weight)
             assertEquals(2000, it.deposit)
+        }
+    }
+
+    @Test
+    fun yearOrderTest() {
+        orderDao.insertOrder(OrderEntity("2021-02-14", 0, 10000, 1.8, 23000))
+        orderDao.insertOrder(OrderEntity("2021-02-01", 0, 5000, 0.2, 2000))
+        orderDao.insertOrder(OrderEntity("2020-12-03", 0, 20000, 1.0, 10000))
+        val order = repository.getYearOrders(2021)
+        order.forEach {
+            Log.d("APIAPI", "${it.month}: ${it.price} ${it.weight} ${it.deposit}")
         }
     }
 }

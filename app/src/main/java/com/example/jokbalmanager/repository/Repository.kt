@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.room.Room
 import com.example.jokbalmanager.model.DayOrder
 import com.example.jokbalmanager.model.Jok
+import com.example.jokbalmanager.model.MonthOrder
 import com.example.jokbalmanager.model.Order
 import com.example.jokbalmanager.model.db.AppDatabase
 import com.example.jokbalmanager.model.db.OrderEntity
 import com.example.jokbalmanager.util.generateDummyData
 import java.util.*
 
-class OrderRepository(context: Context) {
+class OrderRepository private constructor(context: Context) {
     private val db = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
         .allowMainThreadQueries()
         .build()
@@ -35,6 +36,22 @@ class OrderRepository(context: Context) {
 
         val orders = db.orderDao().getOrderData(start, end)
         return convertEntityToOrder(orders, year, month)
+    }
+
+    fun getYearOrders(year: Int): List<MonthOrder> {
+        var orderData = db.orderDao().getOrderData("${year}-01-01", "${year}-12-31")
+        val yearOrders = MutableList<MonthOrder>(12) {
+            MonthOrder("${year}-${it + 1}", 0, 0.0, 0)
+        }
+        orderData.forEach {
+            val month = it.date.substring(5, 7).toInt()
+            yearOrders[month - 1].apply {
+                price += (it.price * it.weight).toLong()
+                weight += it.weight
+                balance += (it.price * it.weight - it.deposit).toLong()
+            }
+        }
+        return yearOrders
     }
 
     fun deleteOrder(order: OrderEntity) {
@@ -74,5 +91,16 @@ class OrderRepository(context: Context) {
 
     companion object {
         const val DB_NAME = "orders.db"
+
+        @Volatile
+        private var instance: OrderRepository? = null
+
+        @JvmStatic
+        fun getInstance(context: Context): OrderRepository =
+            instance ?: synchronized(this) {
+                instance ?: OrderRepository(context).also {
+                    instance = it
+                }
+            }
     }
 }
