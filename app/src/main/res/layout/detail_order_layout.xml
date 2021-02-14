@@ -73,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/round_border"
         android:textSize="@dimen/add_order_text_size"
         app:layout_constraintBottom_toBottomOf="@id/date_tv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -93,8 +94,10 @@
         android:id="@+id/weight_et"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/round_border"
         android:focusableInTouchMode="false"
-        android:gravity="center"
+        android:gravity="end"
         android:inputType="numberDecimal"
         android:textSize="@dimen/add_order_text_size"
         app:layout_constraintBottom_toBottomOf="@id/weight_tv"
@@ -128,8 +131,10 @@
         android:id="@+id/price_et"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/round_border"
         android:focusableInTouchMode="false"
-        android:gravity="center"
+        android:gravity="end"
         android:inputType="number"
         android:textSize="@dimen/add_order_text_size"
         app:layout_constraintBottom_toBottomOf="@id/price_tv"
@@ -150,7 +155,7 @@
         app:layout_constraintTop_toTopOf="@id/price_tv" />
 
     <TextView
-        android:id="@+id/price_ttitle_tv"
+        android:id="@+id/price_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -165,9 +170,9 @@
         android:layout_height="wrap_content"
         android:text="@string/zero"
         android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/price_ttitle_tv"
+        app:layout_constraintBottom_toBottomOf="@id/price_title_tv"
         app:layout_constraintEnd_toStartOf="@id/won_tv2"
-        app:layout_constraintTop_toTopOf="@id/price_ttitle_tv" />
+        app:layout_constraintTop_toTopOf="@id/price_title_tv" />
 
     <TextView
         android:id="@+id/won_tv2"
@@ -176,9 +181,9 @@
         android:layout_marginEnd="16dp"
         android:text="@string/won"
         android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintBottom_toBottomOf="@id/price_ttitle_tv"
+        app:layout_constraintBottom_toBottomOf="@id/price_title_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/price_ttitle_tv" />
+        app:layout_constraintTop_toTopOf="@id/price_title_tv" />
 
     <TextView
         android:id="@+id/deposit_tv"
@@ -187,13 +192,15 @@
         android:layout_marginTop="16dp"
         android:text="@string/deposit"
         android:textSize="@dimen/add_order_text_size"
-        app:layout_constraintStart_toStartOf="@id/price_ttitle_tv"
-        app:layout_constraintTop_toBottomOf="@id/price_ttitle_tv" />
+        app:layout_constraintStart_toStartOf="@id/price_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/price_title_tv" />
 
     <EditText
         android:id="@+id/deposit_et"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/round_border"
         android:focusableInTouchMode="false"
         android:gravity="center"
         android:inputType="number"

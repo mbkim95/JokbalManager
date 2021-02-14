@@ -50,6 +50,8 @@
         layout="@layout/daily_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:paddingBottom="4dp"
         app:layout_constraintTop_toBottomOf="@id/year_button_layout">
 
         <TextView
@@ -140,7 +142,7 @@
         android:id="@+id/daily_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/total_month_data"
