@@ -56,6 +56,16 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
         getMonthOrderData()
     }
 
+    fun setDate(date: String) {
+        val newYear = date.substring(0, 4).toInt()
+        val newMonth = date.substring(5, 7).toInt()
+        val diff = (newYear - year) * 12 + (newMonth - month)
+        _count.value = _count.value?.plus(diff)
+        year = newYear
+        month = newMonth
+        getMonthOrderData()
+    }
+
     fun addOrderData(order: OrderEntity) {
         repository.insertOrder(order)
         getMonthOrderData()

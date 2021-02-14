@@ -88,7 +88,10 @@ class DailyFragment : Fragment() {
                 )
             }
             currentMonthText.setOnClickListener {
-
+                MonthPickerFragment(currentMonthText.text.toString()) { date ->
+                    currentMonthText.text = date
+                    viewModel.setDate(date)
+                }.show(childFragmentManager, MonthPickerFragment::class.java.simpleName)
             }
         }
     }

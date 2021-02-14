@@ -53,6 +53,12 @@ class TotalFragment : Fragment() {
                 adapter = totalAdapter
                 addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             }
+            currentYearText.setOnClickListener {
+                YearPickerFragment(currentYearText.text.toString()) { date ->
+                    currentYearText.text = date
+                    viewModel.setYear(date)
+                }.show(childFragmentManager, YearPickerFragment::class.java.simpleName)
+            }
         }
     }
 

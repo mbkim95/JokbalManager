@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.jokbalmanager.databinding.FragmentMonthPickerBinding
+import com.example.jokbalmanager.databinding.FragmentYearPickerBinding
 
-class MonthPickerFragment(
-    private val date: String,
+class YearPickerFragment(
+    private val year: String,
     private val okButtonClickListener: (String) -> Unit
 ) :
     DialogFragment() {
-    private var _binding: FragmentMonthPickerBinding? = null
+    private var _binding: FragmentYearPickerBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMonthPickerBinding.inflate(inflater, container, false)
+        _binding = FragmentYearPickerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -29,23 +29,13 @@ class MonthPickerFragment(
             yearPicker.apply {
                 minValue = 2015
                 maxValue = 2099
-                value = date.substring(0, 4).toInt()
-            }
-            monthPicker.apply {
-                minValue = 1
-                maxValue = 12
-                value = date.substring(5, 7).toInt()
+                value = year.toInt()
             }
             cancelButton.setOnClickListener {
                 dismiss()
             }
             okButton.setOnClickListener {
-                val year = yearPicker.value
-                var month = monthPicker.value.toString()
-                if (month.length == 1) {
-                    month = "0$month"
-                }
-                okButtonClickListener("${year}-${month}")
+                okButtonClickListener(yearPicker.value.toString())
                 dismiss()
             }
         }

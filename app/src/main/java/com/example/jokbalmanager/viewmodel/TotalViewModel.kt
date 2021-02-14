@@ -43,6 +43,13 @@ class TotalViewModel(application: Application) : AndroidViewModel(application) {
         getYearOrderData()
     }
 
+    fun setYear(date: String) {
+        val diff = date.toInt() - year
+        year = date.toInt()
+        _count.value = _count.value?.plus(diff)
+        getYearOrderData()
+    }
+
     fun getYearOrderData() {
         var weights = 0.0
         var prices = 0L
