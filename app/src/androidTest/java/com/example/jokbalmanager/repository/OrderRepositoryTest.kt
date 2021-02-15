@@ -89,7 +89,7 @@ class OrderRepositoryTest {
         orderDao.insertOrder(OrderEntity("2020-12-03", 0, 20000, 1.0, 10000))
         val order = repository.getYearOrders(2021)
         order.forEach {
-            Log.d("APIAPI", "${it.month}: ${it.price} ${it.weight} ${it.deposit}")
+            Log.d("APIAPI", "${it.month}: ${it.price} ${it.weight}")
         }
     }
 }

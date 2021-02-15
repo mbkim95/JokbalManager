@@ -12,6 +12,7 @@ import com.example.jokbalmanager.databinding.DetailOrderLayoutBinding
 import com.example.jokbalmanager.model.Jok
 import com.example.jokbalmanager.model.Order
 import com.example.jokbalmanager.model.db.OrderEntity
+import java.math.BigDecimal
 import java.util.*
 
 class DetailOrderDialogFragment(
@@ -56,11 +57,13 @@ class DetailOrderDialogFragment(
                 Jok.BACK -> backRadio.isChecked = true
                 else -> mixRadio.isChecked = true
             }
+            val price =
+                BigDecimal.valueOf(order.weight).multiply(BigDecimal.valueOf(order.price)).toLong()
             weightEt.setText(order.weight.toString())
             priceEt.setText(order.price.toString())
-            totalPriceTv.text = (order.weight * order.price).toLong().toString()
+            totalPriceTv.text = price.toString()
             depositEt.setText(order.deposit.toString())
-            totalBalanceTv.text = ((order.weight * order.price).toLong() - order.deposit).toString()
+            totalBalanceTv.text = (price - order.deposit).toString()
 
             okButton.setOnClickListener {
                 dismiss()

@@ -9,6 +9,7 @@ import com.example.jokbalmanager.model.Order
 import com.example.jokbalmanager.model.db.AppDatabase
 import com.example.jokbalmanager.model.db.OrderEntity
 import com.example.jokbalmanager.util.generateDummyData
+import java.math.BigDecimal
 import java.util.*
 
 class OrderRepository private constructor(context: Context) {
@@ -46,9 +47,11 @@ class OrderRepository private constructor(context: Context) {
         orderData.forEach {
             val month = it.date.substring(5, 7).toInt()
             yearOrders[month - 1].apply {
-                price += (it.price * it.weight).toLong()
-                weight += it.weight
-                balance += (it.price * it.weight - it.deposit).toLong()
+                val totalPrice =
+                    BigDecimal.valueOf(it.price).multiply(BigDecimal.valueOf(it.weight)).toLong()
+                price += totalPrice
+                weight = BigDecimal.valueOf(weight).add(BigDecimal.valueOf(it.weight)).toDouble()
+                balance += (totalPrice - it.deposit)
             }
         }
         return yearOrders

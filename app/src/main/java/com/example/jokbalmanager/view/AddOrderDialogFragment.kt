@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.example.jokbalmanager.databinding.AddOrderLayoutBinding
 import com.example.jokbalmanager.model.db.OrderEntity
+import java.math.BigDecimal
 import java.util.*
 
 class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -> Unit) :
@@ -67,9 +68,10 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                     totalBalanceTv.text = "0"
                     return@addTextChangedListener
                 }
-                totalPriceTv.text =
-                    "${(priceEt.text.toString().toLong() * it.toString().toDouble()).toLong()}"
-
+                totalPriceTv.text = "${
+                    (BigDecimal.valueOf(priceEt.text.toString().toLong())
+                        .multiply(BigDecimal.valueOf(it.toString().toDouble()))).toLong()
+                }"
                 if (depositEt.text.isNullOrEmpty()) {
                     totalBalanceTv.text = "${totalPriceTv.text.toString().toLong()}"
                 } else {
@@ -85,7 +87,13 @@ class AddOrderDialogFragment(private val addButtonClickListener: (OrderEntity) -
                     return@addTextChangedListener
                 }
                 totalPriceTv.text =
-                    "${(it.toString().toLong() * weightEt.text.toString().toDouble()).toLong()}"
+                    "${
+                        (BigDecimal.valueOf(it.toString().toLong()).multiply(
+                            BigDecimal.valueOf(
+                                weightEt.text.toString().toDouble()
+                            )
+                        )).toLong()
+                    }"
 
                 if (depositEt.text.isNullOrEmpty()) {
                     totalBalanceTv.text = "${totalPriceTv.text.toString().toLong()}"

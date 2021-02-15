@@ -10,6 +10,7 @@ import com.example.jokbalmanager.databinding.FooterDailyItemBinding
 import com.example.jokbalmanager.model.DayOrder
 import com.example.jokbalmanager.model.Jok
 import com.example.jokbalmanager.model.Order
+import java.math.BigDecimal
 
 class DailyAdapter(
     private var dates: List<DayOrder>,
@@ -75,7 +76,9 @@ class DailyAdapter(
         }
 
         private fun calculateBalance(order: Order): Long {
-            return ((order.price * order.weight).toLong() - order.deposit)
+            val price =
+                BigDecimal.valueOf(order.price).multiply(BigDecimal.valueOf(order.weight)).toLong()
+            return (price - order.deposit)
         }
 
         private fun bindOrderDetail(orders: List<Order>) {
@@ -91,20 +94,24 @@ class DailyAdapter(
                 return
             }
 
-            var totalWeight = 0.0
+            var totalWeight = BigDecimal.valueOf(0.0)
             var totalBalance = 0L
             var totalPrice = 0L
             orders.forEach {
-                totalWeight += it.weight
+                totalWeight = totalWeight.add(BigDecimal.valueOf(it.weight))
                 totalBalance += calculateBalance(it)
-                totalPrice += (it.price * it.weight).toInt()
+                totalPrice += (BigDecimal.valueOf(it.price)
+                    .multiply(BigDecimal.valueOf(it.weight))).toLong()
                 when (it.type) {
                     Jok.FRONT -> {
                         binding.front.apply {
                             root.visibility = View.VISIBLE
                             orderTypeText.text = root.context.getString(R.string.front_leg)
                             weightText.text = "${it.weight}kg"
-                            totalPriceText.text = "${(it.price * it.weight).toInt()}원"
+                            val price =
+                                BigDecimal.valueOf(it.price).multiply(BigDecimal.valueOf(it.weight))
+                                    .toLong()
+                            totalPriceText.text = "${price}원"
                             balanceText.text = "${calculateBalance(it)}원"
                         }
                     }
@@ -113,7 +120,10 @@ class DailyAdapter(
                             root.visibility = View.VISIBLE
                             orderTypeText.text = root.context.getString(R.string.back_leg)
                             weightText.text = "${it.weight}kg"
-                            totalPriceText.text = "${(it.price * it.weight).toInt()}원"
+                            val price =
+                                BigDecimal.valueOf(it.price).multiply(BigDecimal.valueOf(it.weight))
+                                    .toLong()
+                            totalPriceText.text = "${price}원"
                             balanceText.text = "${calculateBalance(it)}원"
                         }
                     }
@@ -122,14 +132,17 @@ class DailyAdapter(
                             root.visibility = View.VISIBLE
                             orderTypeText.text = root.context.getString(R.string.mix_leg)
                             weightText.text = "${it.weight}kg"
-                            totalPriceText.text = "${(it.price * it.weight).toInt()}원"
+                            val price =
+                                BigDecimal.valueOf(it.price).multiply(BigDecimal.valueOf(it.weight))
+                                    .toLong()
+                            totalPriceText.text = "${price}원"
                             balanceText.text = "${calculateBalance(it)}원"
                         }
                     }
                 }
             }
             binding.apply {
-                totalWeightText.text = "${totalWeight}kg"
+                totalWeightText.text = "${totalWeight.toDouble()}kg"
                 totalPriceText.text = "${totalPrice}원"
                 totalBalanceText.text = "${totalBalance}원"
             }

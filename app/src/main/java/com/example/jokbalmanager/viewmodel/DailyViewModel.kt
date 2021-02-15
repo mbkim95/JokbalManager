@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.jokbalmanager.model.DayOrder
 import com.example.jokbalmanager.model.db.OrderEntity
 import com.example.jokbalmanager.repository.OrderRepository
+import java.math.BigDecimal
 import java.util.*
 
 class DailyViewModel(application: Application) : AndroidViewModel(application) {
@@ -82,19 +83,22 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getMonthOrderData() {
-        var weights = 0.0
+        var weights = BigDecimal.valueOf(0.0)
         var prices = 0L
         var balances = 0L
         val orders = repository.getMonthOrders(year, month)
         orders.forEach {
             it.orders.forEach { order ->
-                weights += order.weight
-                prices += (order.price * order.weight).toLong()
-                balances += (order.price * order.weight - order.deposit).toLong()
+                val price =
+                    BigDecimal.valueOf(order.price).multiply(BigDecimal.valueOf(order.weight))
+                        .toLong()
+                weights = weights.add(BigDecimal.valueOf(order.weight))
+                prices += price
+                balances += price - order.deposit
             }
         }
         _monthOrders.value = orders
-        _totalWeight.value = weights
+        _totalWeight.value = weights.toDouble()
         _totalPrice.value = prices
         _totalBalance.value = balances
     }
