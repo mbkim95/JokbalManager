@@ -1,5 +1,7 @@
 package com.mbkim.jokbalmanager.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -44,14 +46,30 @@ class MainFragment : Fragment() {
                 Toast.makeText(requireContext(), "백업하기", Toast.LENGTH_SHORT).show()
             }
             R.id.restore -> {
-                Toast.makeText(requireContext(), "복구하기", Toast.LENGTH_SHORT).show()
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = "*/*"
+                }
+                startActivityForResult(intent, REQUEST_BACKUP_FILE)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_BACKUP_FILE && resultCode == Activity.RESULT_OK) {
+            // TODO: DB 복구
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val REQUEST_BACKUP_FILE = 100
     }
 }
