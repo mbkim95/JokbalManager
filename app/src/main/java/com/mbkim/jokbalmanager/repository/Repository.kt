@@ -1,6 +1,9 @@
 package com.mbkim.jokbalmanager.repository
 
+import android.content.ContentResolver
 import android.content.Context
+import android.net.Uri
+import android.os.Environment
 import androidx.room.Room
 import com.mbkim.jokbalmanager.model.DayOrder
 import com.mbkim.jokbalmanager.model.Jok
@@ -9,6 +12,10 @@ import com.mbkim.jokbalmanager.model.Order
 import com.mbkim.jokbalmanager.model.db.AppDatabase
 import com.mbkim.jokbalmanager.model.db.OrderEntity
 import com.mbkim.jokbalmanager.util.generateDummyData
+import com.mbkim.jokbalmanager.util.getCurrentTime
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.math.BigDecimal
 import java.util.*
 
@@ -90,6 +97,46 @@ class OrderRepository private constructor(context: Context) {
             orders[day - 1].orders.add(Order(type, order.price, order.weight, order.deposit))
         }
         return orders
+    }
+
+    fun saveDatabase() {
+        try {
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                val file = File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath,
+                    "jokbal-${getCurrentTime()}.db"
+                )
+
+                db.close()
+
+                FileInputStream(File(db.openHelper.writableDatabase.path)).use { inputStream ->
+                    FileOutputStream(file).use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
+
+    fun restoreDatabase(contentResolver: ContentResolver, uri: Uri) {
+        try {
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                val file = File(db.openHelper.writableDatabase.path)
+
+                db.close()
+
+                contentResolver.openInputStream(uri).use { inputStream ->
+                    FileOutputStream(file).use { outputStream ->
+                        inputStream?.copyTo(outputStream)
+                    }
+                }
+            }
+
+        } catch(e: Exception) {
+            throw e
+        }
     }
 
     companion object {

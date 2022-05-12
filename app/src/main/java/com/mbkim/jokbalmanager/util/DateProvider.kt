@@ -8,6 +8,11 @@ fun getTodayMonth(): String {
     return dateFormat.format(Date())
 }
 
+fun getCurrentTime(): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd-hh-mm-ss", Locale.KOREA)
+    return dateFormat.format(Date())
+}
+
 fun getPreviousMonth(prevCount: Int): String {
     val dateFormat = SimpleDateFormat("yyyy-MM", Locale.KOREA)
     val cal = Calendar.getInstance()
