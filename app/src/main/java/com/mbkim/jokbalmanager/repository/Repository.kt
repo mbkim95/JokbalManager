@@ -20,11 +20,9 @@ import java.math.BigDecimal
 import java.util.*
 
 class OrderRepository private constructor(context: Context) {
-    private val db = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
-        .allowMainThreadQueries()
-        .build()
+    private val db = Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME).build()
 
-    fun insertOrder(order: OrderEntity) {
+    suspend fun insertOrder(order: OrderEntity) {
         val searchedOrder = db.orderDao().findOrderByType(order.date, order.type)
         if (searchedOrder == null) {
             db.orderDao().insertOrder(order)
@@ -33,7 +31,7 @@ class OrderRepository private constructor(context: Context) {
         db.orderDao().addSameDate(order.date, order.type, order.weight, order.deposit)
     }
 
-    fun getMonthOrders(year: Int, month: Int): List<DayOrder> {
+    suspend fun getMonthOrders(year: Int, month: Int): List<DayOrder> {
         val cal = Calendar.getInstance()
         cal.set(year, month - 1, 1)
         var m = month.toString()
@@ -46,8 +44,8 @@ class OrderRepository private constructor(context: Context) {
         return convertEntityToOrder(orders, year, month)
     }
 
-    fun getYearOrders(year: Int): List<MonthOrder> {
-        var orderData = db.orderDao().getOrderData("${year}-01-01", "${year}-12-31")
+    suspend fun getYearOrders(year: Int): List<MonthOrder> {
+        val orderData = db.orderDao().getOrderData("${year}-01-01", "${year}-12-31")
         val yearOrders = MutableList<MonthOrder>(12) {
             MonthOrder("${year}-${it + 1}", 0, 0.0, 0)
         }
@@ -64,11 +62,11 @@ class OrderRepository private constructor(context: Context) {
         return yearOrders
     }
 
-    fun deleteOrder(order: OrderEntity) {
+    suspend fun deleteOrder(order: OrderEntity) {
         db.orderDao().deleteOrder(order)
     }
 
-    fun updateOrder(date: String, type: Int, order: OrderEntity) {
+    suspend fun updateOrder(date: String, type: Int, order: OrderEntity) {
         val searchedOrder = db.orderDao().findOrderByType(order.date, order.type)
         // 날짜를 수정했더니 기존에 있는 품목에 추가해야하는 경우에는 수정 전 데이터를 삭제하고 기존에 있던 품목에 더해준다
         if (date != order.date && type == order.type && searchedOrder != null) {

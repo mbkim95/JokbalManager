@@ -4,9 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.mbkim.jokbalmanager.model.DayOrder
 import com.mbkim.jokbalmanager.model.db.OrderEntity
 import com.mbkim.jokbalmanager.repository.OrderRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 import java.util.*
 
@@ -68,38 +72,48 @@ class DailyViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun addOrderData(order: OrderEntity) {
-        repository.insertOrder(order)
-        getMonthOrderData()
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertOrder(order)
+            getMonthOrderData()
+        }
     }
 
     fun deleteOrder(order: OrderEntity) {
-        repository.deleteOrder(order)
-        getMonthOrderData()
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteOrder(order)
+            getMonthOrderData()
+        }
     }
 
     fun updateOrder(prevDate: String, type: Int, order: OrderEntity) {
-        repository.updateOrder(prevDate, type, order)
-        getMonthOrderData()
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateOrder(prevDate, type, order)
+            getMonthOrderData()
+        }
     }
 
     fun getMonthOrderData() {
-        var weights = BigDecimal.valueOf(0.0)
-        var prices = 0L
-        var balances = 0L
-        val orders = repository.getMonthOrders(year, month)
-        orders.forEach {
-            it.orders.forEach { order ->
-                val price =
-                    BigDecimal.valueOf(order.price).multiply(BigDecimal.valueOf(order.weight))
-                        .toLong()
-                weights = weights.add(BigDecimal.valueOf(order.weight))
-                prices += price
-                balances += price - order.deposit
+        viewModelScope.launch(Dispatchers.IO) {
+            var weights = BigDecimal.valueOf(0.0)
+            var prices = 0L
+            var balances = 0L
+            val orders = repository.getMonthOrders(year, month)
+            orders.forEach {
+                it.orders.forEach { order ->
+                    val price =
+                        BigDecimal.valueOf(order.price).multiply(BigDecimal.valueOf(order.weight))
+                            .toLong()
+                    weights = weights.add(BigDecimal.valueOf(order.weight))
+                    prices += price
+                    balances += price - order.deposit
+                }
+            }
+            withContext(Dispatchers.Main) {
+                _monthOrders.value = orders
+                _totalWeight.value = weights.toDouble()
+                _totalPrice.value = prices
+                _totalBalance.value = balances
             }
         }
-        _monthOrders.value = orders
-        _totalWeight.value = weights.toDouble()
-        _totalPrice.value = prices
-        _totalBalance.value = balances
     }
 }
