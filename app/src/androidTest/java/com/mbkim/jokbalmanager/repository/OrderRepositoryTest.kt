@@ -7,7 +7,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mbkim.jokbalmanager.model.db.AppDatabase
 import com.mbkim.jokbalmanager.model.db.OrderDao
-import com.mbkim.jokbalmanager.model.db.OrderEntity
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNull
 import org.junit.After

@@ -24,6 +24,44 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "mode"
+    productFlavors {
+        sera {
+            dimension "mode"
+            manifestPlaceholders = [
+                    appLabel: "세라 입고 관리"
+            ]
+            applicationIdSuffix ".sera"
+            versionCode 2
+            versionName "1.1.0"
+            resValue "string", "appName", "세라 입고 관리"
+        }
+        senu {
+            dimension "mode"
+            manifestPlaceholders = [
+                    appLabel: "세누 입고 관리"
+            ]
+            applicationIdSuffix ".senu"
+            versionCode 2
+            versionName "1.1.0"
+            resValue "string", "appName", "세누 입고 관리"
+        }
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+        }
+        sera {
+            java.srcDirs = ['src/sera/java']
+            res.srcDirs = ['src/sera/res']
+        }
+        senu {
+            java.srcDirs = ['src/senu/java']
+            res.srcDirs = ['src/senu/res']
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
